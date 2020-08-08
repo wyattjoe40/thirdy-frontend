@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from './link'
+import './header.css'
 
 class Header extends React.Component {
   constructor(props) {
@@ -22,10 +23,26 @@ class Header extends React.Component {
 
   render() {
     var color = (this.state.date.getSeconds() % 2 === 0 ? 'red' : 'blue')
-    return <div>
-      <Link to={'/'} >
-        <h1 style={{color: color}} id="title">{this.props.title}</h1>
-      </Link>
+    return <div id="top-bar">
+        <nav>
+          <div id="top-bar-logo">
+            <Link to={'/'} >
+              <div>
+                <h1 style={{color: color}} id="title">{this.props.title}</h1>
+              </div>
+            </Link>
+          </div>
+          <div id="top-bar-menu">
+            <ul>
+              <Link to={'/login'} >
+                <li className="top-bar-menu-item">Login</li>
+              </Link>
+              <Link to={'/signup'} >
+                <li className="top-bar-menu-item">Signup</li>
+              </Link>
+            </ul>
+          </div>
+      </nav>
     </div>
     }
 }

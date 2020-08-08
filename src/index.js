@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import ChallengeDetails from './challengeDetails'
 import Signup from './signup'
+import Login from './login'
 import * as serviceWorker from './serviceWorker';
 import Header from './header'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Header title="Thirdy - 30 Day Challenges"/>
       <Route exact={true} path="/" component={App} />
       <Route path="/signup" component={Signup} />
+      <Route path="/login" component={Login} />
       <Route path="/challenges/:slug" render={({match}) => (
         <ChallengeDetails slug={match.params.slug} />
       )}/>
