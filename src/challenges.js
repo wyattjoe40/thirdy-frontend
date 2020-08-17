@@ -5,7 +5,7 @@ class Challenges extends React.Component {
       <div className="Challenges">
         /** Grid view of challenges */
         { this.props.challenges.map((ch) => {
-          return <ChallengePreview key={ch.slug} slug={ch.slug} title={ch.title} description={ch.description} />
+          return <ChallengePreview author={ch.author} key={ch.slug} slug={ch.slug} title={ch.title} description={ch.description} />
         })}
       </div>
   }

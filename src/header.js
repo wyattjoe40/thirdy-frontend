@@ -1,50 +1,79 @@
 import React from 'react'
-import Link from './link'
 import './header.css'
+import LoginSignupHeader from './loginSignupHeader'
+import HeaderUser from './HeaderUser'
+import agent from './agent'
+import userContext from './userContext'
+import BrandLogo from './brandLogo'
+import Link from './link'
 
 class Header extends React.Component {
   constructor(props) {
+    console.log("Header constructor is called")
     super(props)
 
-    this.state = { date: new Date()}
+    this.state = { showSignupModal: false, showLoginModal: props.openLogin }
+
+    this.onSignupClick = this.onSignupClick.bind(this)
+    this.onCloseSignup = this.onCloseSignup.bind(this)
+    this.onLogout = this.onLogout.bind(this)
   }
 
   componentDidMount() {
-    this.timerId = setInterval(() => this.tick(), 1000)
+    agent.User.GetCurrent().then((result) => {
+      this.props.userContext.setUser(result.body)
+    }).catch((err) => {
+      if (err.status === 401) {
+        console.log("No current valid cookie")
+        // we don't have access to ourselves, so we are not logged in, which is fine
+        return
+      }
+
+      // unknown issue
+      console.log(err)
+    })
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timerId)
+  onSignupClick(event) {
+    this.setState({ showSignupModal: true })
   }
 
-  tick() {
-    this.setState({date: new Date()})
+  onCloseSignup(event) {
+    this.setState({ showSignupModal: false })
+  }
+
+  onLogout() {
+    // call the backend
+    agent.User.Logout().then((response) => {
+      // update the local state
+      this.props.userContext.setUser(undefined)
+    }).catch((err) => {
+      console.log("Could not logout user. Err: " + err)
+    })
   }
 
   render() {
-    var color = (this.state.date.getSeconds() % 2 === 0 ? 'red' : 'blue')
-    return <div id="top-bar">
-        <nav>
-          <div id="top-bar-logo">
-            <Link to={'/'} >
-              <div>
-                <h1 style={{color: color}} id="title">{this.props.title}</h1>
-              </div>
+    return (
+    <div id="top-bar" className="bg-red">
+      <nav>
+        <BrandLogo title={this.props.title} />
+        {this.props.userContext.user ?
+          <div>
+            <HeaderUser user={this.props.userContext.user} onLogout={() => this.props.userContext.setUser(undefined)} />
+            <Link to="/user/challenges">
+              <div>My Challenges</div>
             </Link>
+            <button onClick={this.onLogout}>Signout</button>
           </div>
-          <div id="top-bar-menu">
-            <ul>
-              <Link to={'/login'} >
-                <li className="top-bar-menu-item">Login</li>
-              </Link>
-              <Link to={'/signup'} >
-                <li className="top-bar-menu-item">Signup</li>
-              </Link>
-            </ul>
-          </div>
+          : <LoginSignupHeader onLoginClick={this.onLoginClick} onSignupClick={this.onSignupClick} />}
       </nav>
     </div>
-    }
+    )
+  }
 }
 
-export default Header
+export default React.forwardRef((props, ref) => (
+  <userContext.Consumer>
+    {userContext => (<Header {...props} userContext={userContext} ref={ref} />)}
+  </userContext.Consumer>
+))
