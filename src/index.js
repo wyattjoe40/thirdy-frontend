@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/main.css'
 import Home from './Home';
 import ChallengeDetails from './challengeDetails'
 import Profile from './profile'
@@ -38,7 +38,7 @@ class Root extends React.Component {
   }
 
   render() {
-    console.log("Index userContext: " + JSON.stringify({user: this.state.user}))
+    console.log("Index userContext: " + JSON.stringify({ user: this.state.user }))
     return (
       <React.StrictMode>
         <Router>
@@ -46,17 +46,21 @@ class Root extends React.Component {
             <userContext.Provider value={{ user: this.state.user, setUser: this.setUser }} >
               <Header title="Thirdy" />
               <LoginSignupModal />
-              <Route exact={true} path="/" component={Home} />
-              <Route path="/profiles/:username" render={({ match }) => (
-                <Profile username={match.params.username} />
-              )} />
-              <Route path="/challenges/:slug" render={({ match }) => (
-                <ChallengeDetails onLogin={this.openLogin} slug={match.params.slug} />
-              )} />
-              <Route path="/user/challenges/:participationId" render={({ match }) => (
-                <ChallengeParticipationDetails participationId={match.params.participationId} />
-              )} />
-              <Route exact={true} path="/user/challenges" component={MyChallenges} />
+              <div className="flex justify-around">
+                <div id="main-react-content" className="flex flex-1 max-w-screen-lg justify-around">
+                  <Route exact={true} path="/" component={Home} />
+                  <Route path="/profiles/:username" render={({ match }) => (
+                    <Profile username={match.params.username} />
+                  )} />
+                  <Route path="/challenges/:slug" render={({ match }) => (
+                    <ChallengeDetails onLogin={this.openLogin} slug={match.params.slug} />
+                  )} />
+                  <Route path="/user/challenges/:participationId" render={({ match }) => (
+                    <ChallengeParticipationDetails participationId={match.params.participationId} />
+                  )} />
+                  <Route exact={true} path="/user/challenges" component={MyChallenges} />
+                </div>
+              </div>
             </userContext.Provider>
           </loginContext.Provider>
         </Router>

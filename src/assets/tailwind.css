@@ -1,0 +1,13 @@
+@tailwind base;
+
+h3 {
+  @apply text-xl;
+}
+
+@tailwind components;
+
+.generic-container {
+  @apply p-2 m-2 border-solid border-2 rounded border-gray-300;
+}
+
+@tailwind utilities;

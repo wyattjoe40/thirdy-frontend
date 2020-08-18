@@ -54,20 +54,22 @@ class Header extends React.Component {
 
   render() {
     return (
-    <div id="top-bar" className="bg-red">
-      <nav>
-        <BrandLogo title={this.props.title} />
-        {this.props.userContext.user ?
-          <div>
-            <HeaderUser user={this.props.userContext.user} onLogout={() => this.props.userContext.setUser(undefined)} />
-            <Link to="/user/challenges">
-              <div>My Challenges</div>
-            </Link>
-            <button onClick={this.onLogout}>Signout</button>
-          </div>
-          : <LoginSignupHeader onLoginClick={this.onLoginClick} onSignupClick={this.onSignupClick} />}
-      </nav>
-    </div>
+      <div id="top-bar" className="flex flex-row bg-green-600 text-gray-100 items-center justify-around">
+        <div className="max-w-screen-lg flex flex-row items-center flex-1 justify-between">
+          <BrandLogo title={this.props.title} />
+          {this.props.userContext.user ?
+            <div className="flex flex-row">
+              <Link to="/user/challenges">
+                <div className="m-4">My Challenges</div>
+              </Link>
+              <div className="m-4">
+                <HeaderUser user={this.props.userContext.user} onLogout={() => this.props.userContext.setUser(undefined)} />
+              </div>
+              <button className="m-4" onClick={this.onLogout}>Signout</button>
+            </div>
+            : <LoginSignupHeader onLoginClick={this.onLoginClick} onSignupClick={this.onSignupClick} />}
+        </div>
+      </div>
     )
   }
 }

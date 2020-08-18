@@ -3,19 +3,18 @@ import Link from './link'
 
 class ChallengePreview extends React.Component {
   render() {
-    var author
-    if (this.props.author) {
-      author = <p>{this.props.author.username}</p>
-    } else {
-      author = <p>No author</p>
-    }
     return (
-      <div>
+      <div className="flex flex-col items-start generic-container">
         <Link to={`/challenges/${this.props.slug}`} >
           <h3>{this.props.title}</h3>
         </Link>
-        <p>{this.props.description}</p>
-        {author}
+        <p className="text-gray-700">{this.props.description}</p>
+        <p className="text-gray-700">
+          { "By " }
+          <Link to={`/profiles/${this.props.author.username}`}>
+            <span className="text-black">{this.props.author.username}</span>
+          </Link>
+        </p>
       </div>
     )
   }
