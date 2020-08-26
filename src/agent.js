@@ -17,7 +17,8 @@ const methods = {
 
 const Challenge = {
   Get: (slug) => methods.Get(`challenges/${slug}`),
-  Create: () => methods.Put("challenges")
+  Create: () => methods.Put("challenges"),
+  GetActiveUsers: (slug) => methods.Get(`challenges/${slug}/users?status=active`)
 }
 
 const Challenges = {
@@ -37,6 +38,7 @@ const User = {
   Signup: (body) => methods.Post("signup", body),
   GetCurrent: () => methods.Get('users'),
   ActiveChallenges: () => methods.Get('user/participating-challenges?challenge-status=active'),
+  AddProfilePicture: (body) => methods.Post("user/profile-picture", body),
 }
 
 const routes = {

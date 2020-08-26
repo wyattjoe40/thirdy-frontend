@@ -89,7 +89,7 @@ class Signup extends React.Component {
           this.setState({username: `matt${now}`, email: `matt${now}@test.com`, password: "pass", newsletterOptIn: true });
         }}>Fill with unique values</button>
       </form>
-      { this.state.error ?? 
+      { this.state.error &&
         <p style={{color: "red"}}>
           {this.state.error}
         </p>

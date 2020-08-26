@@ -4,27 +4,32 @@ import agent from './agent'
 import userContext from './userContext'
 import loginContext from './loginContext'
 import { withRouter } from 'react-router-dom'
+import UserLink from './UserLink'
 
 class ChallengeDetails extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {loadingState: LoadingState.NOT_STARTED}
+    this.state = { loadingState: LoadingState.NOT_STARTED }
 
     this.startChallenge = this.startChallenge.bind(this)
+    this.createLoadedBody = this.createLoadedBody.bind(this)
   }
 
   componentDidMount() {
-    this.setState({loadingState: LoadingState.LOADING})
+    this.setState({ loadingState: LoadingState.LOADING })
     agent.Challenge.Get(this.props.slug).then((response) => {
-      this.setState({challenge: response.body, loadingState: LoadingState.LOADED});
+      this.setState({ challenge: response.body, loadingState: LoadingState.LOADED });
+    })
+    agent.Challenge.GetActiveUsers(this.props.slug).then((response) => {
+      this.setState({ challengeActiveUsers: response.body })
     })
   }
 
   startChallenge() {
     console.log("Starting a challenge")
     // call the web api to start a challenge
-    agent.ChallengeParticipation.Create({challenge: {slug: this.state.challenge.slug}}).then((result) => {
+    agent.ChallengeParticipation.Create({ challenge: { slug: this.state.challenge.slug } }).then((result) => {
       const challengeParticipation = result.body
       console.log("newly created challengeParticipation")
       console.log(challengeParticipation)
@@ -35,6 +40,42 @@ class ChallengeDetails extends React.Component {
     })
   }
 
+  createLoadedBody() {
+    function createStartChallengeButton(userContext, loginContext) {
+      var onStartChallengeButtonClick
+      if (userContext.user) {
+        onStartChallengeButtonClick = this.startChallenge
+      } else {
+        onStartChallengeButtonClick = () => loginContext.startLogin()
+      }
+      return <button className="btn btn-orange" onClick={onStartChallengeButtonClick}>Start Challenge!</button>
+    }
+
+    return (
+      <userContext.Consumer>
+        {(userContext) => (
+          <div className="p-3 generic-container flex flex-row flex-1">
+            <div className="flex-1">
+              <h2>{this.state.challenge.title}</h2>
+              <UserLink username={this.state.challenge.author.username} profilePictureUrl={this.state.challenge.author.profilePictureUrl} />
+              <p className="mb-3">{this.state.challenge.description}</p>
+              <loginContext.Consumer>{loginContext => (
+                createStartChallengeButton.bind(this)(userContext, loginContext)
+              )}
+              </loginContext.Consumer>
+            </div>
+            <div className="generic-container">
+              <p>Users currently participating:</p>
+              <ul>
+                {this.state.challengeActiveUsers &&
+                  this.state.challengeActiveUsers.map((user) => (<li><UserLink username={user.username} profilePictureUrl={user.profilePictureUrl} /></li>))}
+              </ul>
+            </div>
+          </div>)}
+      </userContext.Consumer>
+    )
+  }
+
   render() {
     var body
     switch (this.state.loadingState) {
@@ -43,22 +84,7 @@ class ChallengeDetails extends React.Component {
         body = <p>Loading...</p>
         break;
       case LoadingState.LOADED:
-        body = 
-        <userContext.Consumer>
-          {(userContext) => (
-        <div>
-          <p>{this.state.challenge.title}</p>
-          <p>{this.state.challenge.description}</p>
-          <p>{this.state.challenge.author.username}</p>
-          { userContext.user ? 
-          <button onClick={this.startChallenge}>Start Challenge!</button>
-          : <loginContext.Consumer>{loginContext => 
-            (<button onClick={(e) => 
-              loginContext.startLogin()}>Start Challenge!</button>
-            )}</loginContext.Consumer>
-          }
-        </div>)}
-        </userContext.Consumer>
+        body = this.createLoadedBody()
         break;
       case LoadingState.FAILED:
         body = <p>FAILED! Try refreshing.</p>
@@ -68,7 +94,7 @@ class ChallengeDetails extends React.Component {
         break;
     }
 
-    return <div>{body}</div>
+    return body
   }
 }
 

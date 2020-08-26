@@ -5,7 +5,7 @@ import agent from './agent'
 function addComputedValues(challengePart) {
   const todaysFeedback = challengePart.dailyFeedback
     .filter(dailyFeedback => dailyFeedback.day === challengePart.dayOfChallenge)
-    .sort((one, two) => (one.createdAt - two.createdAt)) // TODO 
+    .sort((one, two) => (one.createdAt - two.createdAt)) // TODO wydavis: Does this work?
   if (todaysFeedback.length > 0) {
     challengePart.newestTodayFeedback = todaysFeedback[0]
   }

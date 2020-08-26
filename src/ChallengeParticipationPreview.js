@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProgressBar from './ProgressBar'
 import agent from './agent'
+import Link from './link'
 
 class ChallengeParticipationPreview extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ChallengeParticipationPreview extends Component {
   render() {
     return (
       <div className="generic-container">
-        <h3>{this.props.challengeParticipation.challenge.title}</h3>
+        <Link to={`/user/challenges/${this.props.challengeParticipation.id}`}><h3>{this.props.challengeParticipation.challenge.title}</h3></Link>
         <ProgressBar numerator={this.props.challengeParticipation.dayOfChallenge} denominator={30} />
         { this.props.challengeParticipation.newestTodayFeedback ? 
         <p>Logged today!</p>

@@ -577,8 +577,18 @@ video {
   height: auto;
 }
 
+h2 {
+  font-size: 1.875rem;
+  margin: 0.5rem;
+}
+
 h3 {
   font-size: 1.25rem;
+  margin: 0.5rem;
+}
+
+p {
+  margin: 0.5rem;
 }
 
 .container {
@@ -618,6 +628,50 @@ h3 {
   --border-opacity: 1;
   border-color: #e2e8f0;
   border-color: rgba(226, 232, 240, var(--border-opacity));
+}
+
+.full-without-header {
+  height: calc(100vh - 5rem);
+}
+
+.btn {
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+  margin: 0.5rem;
+}
+
+.btn-orange {
+  --bg-opacity: 1;
+  background-color: #dd6b20;
+  background-color: rgba(221, 107, 32, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.btn-orange:hover {
+  --bg-opacity: 1;
+  background-color: #9c4221;
+  background-color: rgba(156, 66, 33, var(--bg-opacity));
+}
+
+.btn-green {
+  --bg-opacity: 1;
+  background-color: #68d391;
+  background-color: rgba(104, 211, 145, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.btn-green:hover {
+  --bg-opacity: 1;
+  background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
@@ -7600,6 +7654,10 @@ h3 {
 
 .min-w-0 {
   min-width: 0;
+}
+
+.min-w-1\/5 {
+  min-width: 20%;
 }
 
 .min-w-full {
@@ -21468,6 +21526,10 @@ h3 {
     min-width: 0;
   }
 
+  .sm\:min-w-1\/5 {
+    min-width: 20%;
+  }
+
   .sm\:min-w-full {
     min-width: 100%;
   }
@@ -35289,6 +35351,10 @@ h3 {
 
   .md\:min-w-0 {
     min-width: 0;
+  }
+
+  .md\:min-w-1\/5 {
+    min-width: 20%;
   }
 
   .md\:min-w-full {
@@ -49114,6 +49180,10 @@ h3 {
     min-width: 0;
   }
 
+  .lg\:min-w-1\/5 {
+    min-width: 20%;
+  }
+
   .lg\:min-w-full {
     min-width: 100%;
   }
@@ -62935,6 +63005,10 @@ h3 {
 
   .xl\:min-w-0 {
     min-width: 0;
+  }
+
+  .xl\:min-w-1\/5 {
+    min-width: 20%;
   }
 
   .xl\:min-w-full {

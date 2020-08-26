@@ -342,6 +342,7 @@ module.exports = {
     },
     minWidth: {
       '0': '0',
+      '1/5': '20%',
       full: '100%',
     },
     objectPosition: {

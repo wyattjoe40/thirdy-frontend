@@ -62,7 +62,7 @@ class Login extends React.Component {
         </label>
         </div>
         <input type="submit" value="Login" />
-        { this.state.error ?? <p>{this.state.error}</p>}
+        { this.state.error && <p>{this.state.error}</p>}
       </form>)}
       </userContext.Consumer>
       )}

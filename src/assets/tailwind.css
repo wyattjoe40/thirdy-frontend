@@ -1,13 +1,46 @@
 @tailwind base;
 
+h2 {
+  @apply text-3xl m-2;
+}
+
 h3 {
-  @apply text-xl;
+  @apply text-xl m-2;
+}
+
+p {
+  @apply m-2;
 }
 
 @tailwind components;
 
 .generic-container {
   @apply p-2 m-2 border-solid border-2 rounded border-gray-300;
+}
+
+.full-without-header {
+  height: calc(100vh - 5rem);
+}
+
+.btn {
+  @apply font-bold py-2 px-4 rounded m-2;
+}
+
+.btn-orange {
+  @apply bg-orange-600 text-white;
+}
+
+.btn-orange:hover {
+  @apply bg-orange-800;
+}
+
+.btn-green {
+  @apply bg-green-400 text-white;
+}
+
+.btn-green:hover {
+  @apply bg-green-600;
+
 }
 
 @tailwind utilities;

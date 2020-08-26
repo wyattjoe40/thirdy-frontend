@@ -7,11 +7,18 @@ import Profile from './profile'
 import LoginSignupModal from './loginSignupModal'
 import ChallengeParticipationDetails from './ChallengeParticipationDetails'
 import MyChallenges from './MyChallenges'
+import MySettings from './MySettings'
+import TestingFlex from './TestingFlex'
 import * as serviceWorker from './serviceWorker';
 import Header from './header'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import loginContext from './loginContext'
 import userContext from './userContext'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion } from '@fortawesome/free-solid-svg-icons'
+import NotFound from './NotFound'
+
+library.add(faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion)
 
 // set context here
 class Root extends React.Component {
@@ -38,7 +45,6 @@ class Root extends React.Component {
   }
 
   render() {
-    console.log("Index userContext: " + JSON.stringify({ user: this.state.user }))
     return (
       <React.StrictMode>
         <Router>
@@ -46,8 +52,8 @@ class Root extends React.Component {
             <userContext.Provider value={{ user: this.state.user, setUser: this.setUser }} >
               <Header title="Thirdy" />
               <LoginSignupModal />
-              <div className="flex justify-around">
-                <div id="main-react-content" className="flex flex-1 max-w-screen-lg justify-around">
+              <div id="main-react-content" className="max-w-screen-lg mx-auto">
+                <Switch>
                   <Route exact={true} path="/" component={Home} />
                   <Route path="/profiles/:username" render={({ match }) => (
                     <Profile username={match.params.username} />
@@ -58,8 +64,11 @@ class Root extends React.Component {
                   <Route path="/user/challenges/:participationId" render={({ match }) => (
                     <ChallengeParticipationDetails participationId={match.params.participationId} />
                   )} />
+                  <Route path="/testing-flex" component={TestingFlex} />
                   <Route exact={true} path="/user/challenges" component={MyChallenges} />
-                </div>
+                  <Route exact={true} path="/user/settings" component={MySettings} />
+                  <Route path="*" component={NotFound} />
+                </Switch>
               </div>
             </userContext.Provider>
           </loginContext.Provider>
