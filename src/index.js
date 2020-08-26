@@ -8,7 +8,7 @@ import LoginSignupModal from './loginSignupModal'
 import ChallengeParticipationDetails from './ChallengeParticipationDetails'
 import MyChallenges from './MyChallenges'
 import MySettings from './MySettings'
-import TestingFlex from './TestingFlex'
+import Testing from './Testing'
 import * as serviceWorker from './serviceWorker';
 import Header from './header'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -64,7 +64,7 @@ class Root extends React.Component {
                   <Route path="/user/challenges/:participationId" render={({ match }) => (
                     <ChallengeParticipationDetails participationId={match.params.participationId} />
                   )} />
-                  <Route path="/testing-flex" component={TestingFlex} />
+                  <Route path="/testing" component={Testing} />
                   <Route exact={true} path="/user/challenges" component={MyChallenges} />
                   <Route exact={true} path="/user/settings" component={MySettings} />
                   <Route path="*" component={NotFound} />

@@ -38,6 +38,7 @@ class DailyFeedback extends Component {
   }
 
   onSaveFeedback(text) {
+    // TODO wydavis: There's a bug when we pass in 'none' as the props for status, it is not allowed on the backend
     this.props.saveFeedback({feedbackText: text, day: this.props.feedback.day, status: this.props.feedback.status})
   }
 

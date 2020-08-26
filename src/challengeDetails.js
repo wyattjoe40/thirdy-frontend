@@ -1,10 +1,9 @@
 import React from 'react'
 import LoadingState from './loadingState'
 import agent from './agent'
-import userContext from './userContext'
-import loginContext from './loginContext'
 import { withRouter } from 'react-router-dom'
 import UserLink from './UserLink'
+import LoginRequiredAction from './LoginRequiredAction'
 
 class ChallengeDetails extends React.Component {
   constructor(props) {
@@ -41,38 +40,25 @@ class ChallengeDetails extends React.Component {
   }
 
   createLoadedBody() {
-    function createStartChallengeButton(userContext, loginContext) {
-      var onStartChallengeButtonClick
-      if (userContext.user) {
-        onStartChallengeButtonClick = this.startChallenge
-      } else {
-        onStartChallengeButtonClick = () => loginContext.startLogin()
-      }
-      return <button className="btn btn-orange" onClick={onStartChallengeButtonClick}>Start Challenge!</button>
-    }
-
     return (
-      <userContext.Consumer>
-        {(userContext) => (
-          <div className="p-3 generic-container flex flex-row flex-1">
-            <div className="flex-1">
-              <h2>{this.state.challenge.title}</h2>
-              <UserLink username={this.state.challenge.author.username} profilePictureUrl={this.state.challenge.author.profilePictureUrl} />
-              <p className="mb-3">{this.state.challenge.description}</p>
-              <loginContext.Consumer>{loginContext => (
-                createStartChallengeButton.bind(this)(userContext, loginContext)
-              )}
-              </loginContext.Consumer>
-            </div>
-            <div className="generic-container">
-              <p>Users currently participating:</p>
-              <ul>
-                {this.state.challengeActiveUsers &&
-                  this.state.challengeActiveUsers.map((user) => (<li><UserLink username={user.username} profilePictureUrl={user.profilePictureUrl} /></li>))}
-              </ul>
-            </div>
-          </div>)}
-      </userContext.Consumer>
+      <div className="p-3 generic-container flex flex-row flex-1">
+        <div className="flex-1">
+          <h2>{this.state.challenge.title}</h2>
+          <UserLink username={this.state.challenge.author.username} profilePictureUrl={this.state.challenge.author.profilePictureUrl} />
+          <p className="mb-3">{this.state.challenge.description}</p>
+          <LoginRequiredAction action={this.startChallenge} render=
+            {action => (
+              <button className="btn btn-orange" onClick={action}>Start Challenge!</button>
+            )} />
+        </div>
+        <div className="generic-container">
+          <p>Users currently participating:</p>
+          <ul>
+            {this.state.challengeActiveUsers &&
+              this.state.challengeActiveUsers.map((user) => (<li><UserLink username={user.username} profilePictureUrl={user.profilePictureUrl} /></li>))}
+          </ul>
+        </div>
+      </div>
     )
   }
 
