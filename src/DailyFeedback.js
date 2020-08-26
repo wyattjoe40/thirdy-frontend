@@ -6,26 +6,25 @@ class Status extends Component {
   render() {
     var statusDisplayText
     var statusDisplayIcon
+    var statusDisplayColor = ""
     switch (this.props.status) {
       case 'completed':
         statusDisplayText = "Completed"
         statusDisplayIcon = "check-circle"
+        statusDisplayColor = "text-green-600"
         break;
       case 'skipped':
         statusDisplayText = "Skipped"
         statusDisplayIcon = "times-circle"
-        break;
-      case 'none':
-        statusDisplayText = "Missed"
-        statusDisplayIcon = "question"
+        statusDisplayColor = "text-orange-600"
         break;
       default:
-        statusDisplayText = "N/A"
+        statusDisplayText = "Not Completed"
         statusDisplayIcon = "question"
         break;
     }
     return (
-      <p>Status: <FontAwesomeIcon icon={statusDisplayIcon}/> {statusDisplayText}</p>
+      <p>Status: <FontAwesomeIcon className={`${statusDisplayColor}`} icon={statusDisplayIcon}/> {statusDisplayText}</p>
     )
   }
 }
@@ -34,7 +33,12 @@ class DailyFeedback extends Component {
   constructor(props) {
     super(props)
 
+    this.onUpdateStatus = this.onUpdateStatus.bind(this)
     this.onSaveFeedback = this.onSaveFeedback.bind(this)
+  }
+
+  onUpdateStatus(status) {
+    this.props.saveFeedback({day: this.props.feedback.day, status: status})
   }
 
   onSaveFeedback(text) {
@@ -47,7 +51,12 @@ class DailyFeedback extends Component {
       <div className="w-full">
         <h2>Day {this.props.feedback.day}</h2>
         <Status status={this.props.feedback.status} />
-        <LongTextForm onSubmit={this.onSaveFeedback} defaultText={this.props.feedback.feedbackText} />
+        { !this.props.feedback.status &&
+        <div className="flex">
+          <button onClick={() => this.onUpdateStatus('completed')} className="btn btn-green">Complete</button>
+          <button onClick={() => this.onUpdateStatus('skipped')} className="btn btn-orange">Skip</button>
+        </div>}
+        <LongTextForm title="Feedback" disabled={!this.props.feedback.status} onSubmit={this.onSaveFeedback} defaultText={this.props.feedback.feedbackText} />
       </div>
     );
   }

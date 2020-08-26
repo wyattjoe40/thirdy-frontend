@@ -88,7 +88,7 @@ class ChallengeParticipationDetails extends Component {
     arr.forEach((index) => {
       var day = index + 1
       if (!latestFeedbacksOverAllDays[day]) {
-        latestFeedbacksOverAllDays[day] = {day: day, status: 'none'}
+        latestFeedbacksOverAllDays[day] = {day: day, status: undefined, feedbackText: ''}
       }
     })
     return latestFeedbacksOverAllDays;
@@ -118,7 +118,7 @@ class ChallengeParticipationDetails extends Component {
       const isSelected = (this.state.selectedFeedback && this.state.selectedType === SelectedType.DAY) ? this.state.selectedFeedback.day === dayNumber : false
       const isDisabled = dayNumber > this.state.challengePart.dayOfChallenge
       if (!feedbackForThisDay) {
-        return <DailyFeedbackRow isDisabled={isDisabled} isSelected={isSelected} key={dayNumber} onClick={this.dayRowIsClicked} isToday={isToday} day={dayNumber} status="none" />
+        return <DailyFeedbackRow isDisabled={isDisabled} isSelected={isSelected} key={dayNumber} onClick={this.dayRowIsClicked} isToday={isToday} day={dayNumber} />
       } else {
         return <DailyFeedbackRow isDisabled={isDisabled} isSelected={isSelected} key={dayNumber} onClick={this.dayRowIsClicked} isToday={isToday} status={feedbackForThisDay.status} day={feedbackForThisDay.day} feedbackText={feedbackForThisDay.feedbackText} />
       }

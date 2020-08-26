@@ -644,7 +644,14 @@ p {
   margin: 0.5rem;
 }
 
-.btn-orange {
+.btn:disabled {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+  cursor: not-allowed;
+}
+
+.btn-orange:enabled {
   --bg-opacity: 1;
   background-color: #dd6b20;
   background-color: rgba(221, 107, 32, var(--bg-opacity));
@@ -653,13 +660,13 @@ p {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.btn-orange:hover {
+.btn-orange:enabled:hover {
   --bg-opacity: 1;
   background-color: #9c4221;
   background-color: rgba(156, 66, 33, var(--bg-opacity));
 }
 
-.btn-green {
+.btn-green:enabled {
   --bg-opacity: 1;
   background-color: #68d391;
   background-color: rgba(104, 211, 145, var(--bg-opacity));
@@ -668,7 +675,7 @@ p {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.btn-green:hover {
+.btn-green:enabled:hover {
   --bg-opacity: 1;
   background-color: #38a169;
   background-color: rgba(56, 161, 105, var(--bg-opacity));

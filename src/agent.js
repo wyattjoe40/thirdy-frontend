@@ -37,7 +37,11 @@ const User = {
   // TODO wydavis: put under user path
   Signup: (body) => methods.Post("signup", body),
   GetCurrent: () => methods.Get('users'),
+  GetUser: (username) => methods.Get(`users/${username}`),
+  ParticipatingChallenges: (username) => methods.Get(`users/${username}/participating-challenges`),
+  //AuthoredChallenges: () => methods.get(),
   ActiveChallenges: () => methods.Get('user/participating-challenges?challenge-status=active'),
+  AllChallenges: () => methods.Get('user/participating-challenges'),
   AddProfilePicture: (body) => methods.Post("user/profile-picture", body),
 }
 

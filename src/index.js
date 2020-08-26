@@ -52,7 +52,7 @@ class Root extends React.Component {
             <userContext.Provider value={{ user: this.state.user, setUser: this.setUser }} >
               <Header title="Thirdy" />
               <LoginSignupModal />
-              <div id="main-react-content" className="max-w-screen-lg mx-auto">
+              <div id="main-react-content" className="max-w-screen-lg mx-auto mt-4">
                 <Switch>
                   <Route exact={true} path="/" component={Home} />
                   <Route path="/profiles/:username" render={({ match }) => (

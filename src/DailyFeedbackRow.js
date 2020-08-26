@@ -17,10 +17,10 @@ class DailyFeedbackRow extends Component {
     var icon
     switch(this.props.status) {
       case 'completed':
-        icon = <FontAwesomeIcon icon='check-circle' />
+        icon = <FontAwesomeIcon className="text-green-600" icon='check-circle' />
         break;
       case 'skipped':
-        icon = <FontAwesomeIcon icon='times-circle' />
+        icon = <FontAwesomeIcon className="text-orange-600" icon='times-circle' />
         break;
       case 'none':
       default:
