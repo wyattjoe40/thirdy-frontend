@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import LoginRequiredAction from './LoginRequiredAction'
+import TimezonePicker from './TimezonePicker';
 
 class Testing extends Component {
   constructor(props) {
     super(props)
 
-    this.onClick = this.onClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  onClick(e) {
+  handleChange(e) {
     console.log("onClickCalled")
-    console.log(e)
-    console.log(e.target)
+    console.log(e.target.value)
   }
 
   render() {
     return (
       <div>
-        <LoginRequiredAction action={this.onClick} render={action => {
-          return <button onClick={action}>Button</button>
-        }} />
+        <TimezonePicker
+          onChange={this.handleChange}
+          defaultValue={'America/New_York'}
+          unselectLabel="No Timezone"
+          className="bg-green-600"
+          style={{
+            borderRadius: '0.5rem',
+            color: 'white',
+          }}
+        />
       </div>
     );
   }

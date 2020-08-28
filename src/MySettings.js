@@ -34,10 +34,17 @@ class MySettings extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Upload Profile Picture</h2>
+      <div className="generic-container">
+        <h2>Settings</h2>
+        <h3>Username</h3>
+        <p>{this.props.userContext.user.username}</p>
+        <h3>Upload Profile Picture</h3>
         <input id="file-picker" type="file" name="image" onChange={this.onFileChange} />
         <button disabled={!this.state.selectedImage} onClick={this.onUploadImage}>Upload</button>
+        <h3>Email</h3>
+        <p>{this.props.userContext.user.email}</p>
+        <h3>Timezone</h3>
+        <p>{this.props.userContext.user.timezone}</p>
       </div>
     );
   }

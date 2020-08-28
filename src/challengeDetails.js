@@ -51,6 +51,7 @@ class ChallengeDetails extends React.Component {
               <button className="btn btn-orange" onClick={action}>Start Challenge!</button>
             )} />
         </div>
+
         <div className="generic-container">
           <p>Users currently participating:</p>
           <ul>

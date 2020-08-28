@@ -23,20 +23,23 @@ class Profile extends React.Component {
     })
   }
 
-  buildChallengeGrid(challenges) {
+  buildChallengeGrid(title, challenges) {
     return (
-      <div className="flex w-full flex-wrap" >
-        {challenges.map((part) =>
+      <div className="generic-container w-full">
+        <h2 className="self-start">{title}</h2>
+        <div className="flex w-full flex-wrap" >
+          {challenges.map((part) =>
 
-          <div className="generic-container w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-            <h3>
-              <Link to={`/challenges/${part.challenge.slug}`}>
-                {part.challenge.title}
-              </Link>
-            </h3>
-            <p>Days done: {part.dayOfChallenge}</p>
-          </div>
-        )}
+            <div className="generic-container w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+              <h3>
+                <Link to={`/challenges/${part.challenge.slug}`}>
+                  {part.challenge.title}
+                </Link>
+              </h3>
+              <p>Days done: {part.dayOfChallenge}</p>
+            </div>
+          )}
+        </div>
       </div>)
   }
 
@@ -45,10 +48,8 @@ class Profile extends React.Component {
       <div className="flex flex-col items-center w-full">
         <RoundImage alt="profile" src={this.state.user.profilePictureUrl} />
         <h2>{this.state.user.username}</h2>
-        <h2 className="self-start">Active Challenges</h2>
-        {this.buildChallengeGrid(this.state.challengeParts.filter(part => part.status === 'active'))}
-        <h2 className="self-start">Completed Challenges</h2>
-        {this.buildChallengeGrid(this.state.challengeParts.filter(part => part.status === 'complete'))}
+        {this.buildChallengeGrid("Active Challenges", this.state.challengeParts.filter(part => part.status === 'active'))}
+        {this.buildChallengeGrid("Completed Challenges", this.state.challengeParts.filter(part => part.status === 'complete'))}
       </div>
     )
   }

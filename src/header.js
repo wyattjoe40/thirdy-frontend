@@ -6,6 +6,7 @@ import agent from './agent'
 import userContext from './userContext'
 import BrandLogo from './brandLogo'
 import Link from './link'
+import { withRouter } from 'react-router-dom'
 
 class Header extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Header extends React.Component {
     agent.User.Logout().then((response) => {
       // update the local state
       this.props.userContext.setUser(undefined)
+      this.props.history.push('/')
     }).catch((err) => {
       console.log("Could not logout user. Err: " + err)
     })
@@ -53,7 +55,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div id="top-bar" className="flex flex-row bg-green-600 text-gray-100 items-center justify-around h-20">
+      <div id="top-bar" className="flex flex-row bg-green-600 text-gray-100 items-center justify-around h-18">
         <div className="max-w-screen-lg flex align-stretch flex-row items-center flex-1 justify-between">
           <BrandLogo title={this.props.title} />
           {this.props.userContext.user ?
@@ -62,7 +64,7 @@ class Header extends React.Component {
                 <p className="m-4">My Challenges</p>
               </Link>
               <div className="m-4">
-                <HeaderUser user={this.props.userContext.user} onLogout={() => this.props.userContext.setUser(undefined)} />
+                <HeaderUser user={this.props.userContext.user} />
               </div>
               <Link to="/user/settings">
                 <div className="m-4">Settings</div>
@@ -76,8 +78,8 @@ class Header extends React.Component {
   }
 }
 
-export default React.forwardRef((props, ref) => (
+export default withRouter(React.forwardRef((props, ref) => (
   <userContext.Consumer>
     {userContext => (<Header {...props} userContext={userContext} ref={ref} />)}
   </userContext.Consumer>
-))
+)))

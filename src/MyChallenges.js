@@ -17,7 +17,6 @@ class MyChallenges extends Component {
 
     this.state = { challengeParts: [] }
 
-    this.loadActiveChallenges = this.loadActiveChallenges.bind(this)
     this.updateChallenge = this.updateChallenge.bind(this)
   }
 
@@ -65,7 +64,6 @@ class MyChallenges extends Component {
     // list of challenge participation previews
     return (
       <div className="flex-1">
-        <button onClick={this.loadActiveChallenges} >Load Challenges</button>
         {this.state.challengeParts.map((part) => (
           <div key={part.id}>
             <ChallengeParticipationPreview updateChallenge={this.updateChallenge} Challenges={this.refreshChallenges} challengeParticipation={part} />

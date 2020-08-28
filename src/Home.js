@@ -43,7 +43,6 @@ class Home extends React.Component {
 
     return (
       <div className="flex flex-1 flex-col">
-        <button onClick={this.createNewChallenge} disabled={true}>Create new challenge</button>
         {body}
       </div>
     );

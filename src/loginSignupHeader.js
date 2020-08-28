@@ -14,7 +14,7 @@ class LoginSignupHeader extends React.Component {
             </button>
           </li>
           <li className="top-bar-menu-item">
-            <button onClick={this.props.onSignupClick}>
+            <button onClick={loginContext.startSignup}>
               Signup
             </button>
           </li>
