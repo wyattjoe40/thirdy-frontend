@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 const currentZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const currentCountry = currentZone && currentZone.split('/')[0]

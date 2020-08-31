@@ -1,8 +1,8 @@
 import React from 'react'
 import agent from './agent'
-import TimezonePicker from './TimezonePicker'
 import loginContext from "./loginContext";
 import userContext from "./userContext";
+import TimezonePicker from './TimezonePicker';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -60,25 +60,29 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className="flex flex-col items-center">
+        <form className="flex flex-col items-center" onSubmit={this.handleSubmit}>
+          <h2 className="text-green-600">thirdy</h2>
+          <h3>Signup</h3>
           <div>
-            <label>
-              Username:
-            <input type="text" name="username" value={this.state.username} onChange={this.handleValueChange} />
-            </label>
+            <input className="generic-container" placeholder="username" type="text" name="username" value={this.state.username} onChange={this.handleValueChange} />
           </div>
           <div>
-            <label>
-              Email:
-            <input type="email" name="email" value={this.state.email} onChange={this.handleValueChange} />
-            </label>
+            <input className="generic-container" placeholder="email" type="email" name="email" value={this.state.email} onChange={this.handleValueChange} />
           </div>
           <div>
-            <label>
-              Password:
-            <input type="password" name="password" value={this.state.password} onChange={this.handleValueChange} />
-            </label>
+            <input className="generic-container" placeholder="password" type="password" name="password" value={this.state.password} onChange={this.handleValueChange} />
+          </div>
+          <div>
+            <TimezonePicker
+              name="timezone"
+              onChange={this.handleValueChange}
+              unselectLabel="Select a timezone..."
+              className="generic-container"
+              style={{
+                borderRadius: '0.5rem',
+              }}
+            />
           </div>
           <div>
             <label>
@@ -86,23 +90,8 @@ class Signup extends React.Component {
             <input type="checkbox" name="newsletterOptIn" checked={this.state.newsletterOptIn} onChange={this.handleCheckboxChange} />
             </label>
           </div>
-          <div>
-            <label>
-              Timezone:
-          </label>
-            <TimezonePicker
-              name="timezone"
-              onChange={this.handleValueChange}
-              defaultValue={'America/New_York'}
-              unselectLabel="Select a timezone..."
-              className="p-2 border-green-600"
-              style={{
-                borderRadius: '0.5rem',
-              }}
-            />
-          </div>
-          <input type="submit" value="Signup" />
-          <button onClick={(event) => {
+          <input className="btn btn-green" type="submit" value="Signup" />
+          <button className="btn btn-gray" onClick={(event) => {
             event.preventDefault();
             const now = (new Date()).getTime().toString();
             this.setState({ username: `matt${now}`, email: `matt${now}@test.com`, password: "pass", newsletterOptIn: true });
@@ -113,6 +102,7 @@ class Signup extends React.Component {
             {this.state.error}
           </p>
         }
+        <button className="btn btn-gray" onClick={this.props.toLogin}>Go to Login</button>
       </div>
     )
   }

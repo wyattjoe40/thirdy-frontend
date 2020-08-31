@@ -48,22 +48,21 @@ class Login extends React.Component {
         {(loginContext) =>
           (<userContext.Consumer>
             {(userContext) => (
-              <form onSubmit={(e) => { this.onSubmit(e, (user) => { loginContext.closeLogin(); userContext.setUser(user) }) }}>
-                <div>
-                  <label>
-                    Email
-                    <input type="email" name="email" onChange={this.onValueChange} />
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Password
-                    <input type="password" name="password" onChange={this.onValueChange} />
-                  </label>
-                </div>
-                <input type="submit" value="Login" />
-                {this.state.error && <p>{this.state.error}</p>}
-              </form>)}
+              <div className="flex flex-col items-center">
+                <form className="flex flex-col items-center" onSubmit={(e) => { this.onSubmit(e, (user) => { loginContext.closeLogin(); userContext.setUser(user) }) }}>
+                  <h2 className="text-green-600">thirdy</h2>
+                  <h3>Login</h3>
+                  <div>
+                    <input className="generic-container" placeholder="email address" type="email" name="email" onChange={this.onValueChange} />
+                  </div>
+                  <div>
+                    <input className="generic-container" placeholder="password" type="password" name="password" onChange={this.onValueChange} />
+                  </div>
+                  <input className="btn btn-green" type="submit" value="Login" />
+                  {this.state.error && <p>{this.state.error}</p>}
+                </form>
+                <button className="btn btn-gray" onClick={this.props.toSignup} >Go to Signup</button>
+              </div>)}
           </userContext.Consumer>
           )}
       </loginContext.Consumer>

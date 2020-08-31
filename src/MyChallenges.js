@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import ChallengeParticipationPreview from './ChallengeParticipationPreview'
 import agent from './agent'
 
+function compare(one, two) {
+  return new Date(two.createdAt) - new Date(one.createdAt)
+}
+
 function addComputedValues(challengePart) {
   const todaysFeedback = challengePart.dailyFeedback
     .filter(dailyFeedback => dailyFeedback.day === challengePart.dayOfChallenge)
-    .sort((one, two) => (one.createdAt - two.createdAt)) // TODO wydavis: Does this work?
+    .sort(compare) // TODO wydavis: Does this work?
   if (todaysFeedback.length > 0) {
     challengePart.newestTodayFeedback = todaysFeedback[0]
   }
@@ -66,7 +70,7 @@ class MyChallenges extends Component {
       <div className="flex-1">
         {this.state.challengeParts.map((part) => (
           <div key={part.id}>
-            <ChallengeParticipationPreview updateChallenge={this.updateChallenge} Challenges={this.refreshChallenges} challengeParticipation={part} />
+            <ChallengeParticipationPreview updateChallenge={this.updateChallenge} challengeParticipation={part} />
           </div>
         ))}
       </div>

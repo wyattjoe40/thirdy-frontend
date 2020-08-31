@@ -7,7 +7,7 @@ class LoginSignupHeader extends React.Component {
       <loginContext.Consumer>
         {(loginContext) => (
       <div id="top-bar-menu">
-        <ul>
+        <ul className="flex">
           <li className="top-bar-menu-item">
             <button onClick={loginContext.startLogin}>
               Login

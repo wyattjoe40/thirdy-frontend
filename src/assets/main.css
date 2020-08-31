@@ -634,6 +634,9 @@ p {
   height: calc(100vh - 5rem);
 }
 
+.login-input {
+}
+
 .btn {
   font-weight: 700;
   padding-top: 0.5rem;
@@ -679,6 +682,18 @@ p {
   --bg-opacity: 1;
   background-color: #38a169;
   background-color: rgba(56, 161, 105, var(--bg-opacity));
+}
+
+.btn-gray:enabled {
+  --bg-opacity: 1;
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, var(--bg-opacity));
+}
+
+.btn-gray:enabled:hover {
+  --bg-opacity: 1;
+  background-color: #718096;
+  background-color: rgba(113, 128, 150, var(--bg-opacity));
 }
 
 .space-y-0 > :not(template) ~ :not(template) {

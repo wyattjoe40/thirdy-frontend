@@ -6,18 +6,15 @@ import loginContext, { CurrentScreen } from './loginContext'
 class LoginSignup extends Component {
   render() {
     var body
-    var bottomNav = null
     switch (this.props.loginContext.currentScreen) {
       case (CurrentScreen.SIGNUP):
-        body = <Signup />
-        bottomNav = <button onClick={() => this.props.loginContext.setCurrentScreen(CurrentScreen.LOGIN)}>Go to Login</button>
+        body = <Signup toLogin={() => this.props.loginContext.setCurrentScreen(CurrentScreen.LOGIN)}/>
         break;
       case (CurrentScreen.PROFILE):
         body = <p>Profile: Not implemented yet.</p>
         break;
       case (CurrentScreen.LOGIN):
-        body = <Login />
-        bottomNav = <button onClick={() => this.props.loginContext.setCurrentScreen(CurrentScreen.SIGNUP)}>Go to Signup</button>
+        body = <Login toSignup={() => this.props.loginContext.setCurrentScreen(CurrentScreen.SIGNUP)}/>
         break;
       default:
         body = <p>Unknown screen</p>
@@ -26,7 +23,6 @@ class LoginSignup extends Component {
     return (
           <div>
             { body }
-            { bottomNav }
           </div>
     )
   }

@@ -1,33 +1,7 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LongTextForm from './LongTextForm'
-
-class Status extends Component {
-  render() {
-    var statusDisplayText
-    var statusDisplayIcon
-    var statusDisplayColor = ""
-    switch (this.props.status) {
-      case 'completed':
-        statusDisplayText = "Completed"
-        statusDisplayIcon = "check-circle"
-        statusDisplayColor = "text-green-600"
-        break;
-      case 'skipped':
-        statusDisplayText = "Skipped"
-        statusDisplayIcon = "times-circle"
-        statusDisplayColor = "text-orange-600"
-        break;
-      default:
-        statusDisplayText = "Not Completed"
-        statusDisplayIcon = "question"
-        break;
-    }
-    return (
-      <p>Status: <FontAwesomeIcon className={`${statusDisplayColor}`} icon={statusDisplayIcon}/> {statusDisplayText}</p>
-    )
-  }
-}
+import DailyFeedbackStatusButtons from './DailyFeedbackStatusButtons'
+import Status from './Status'
 
 class DailyFeedback extends Component {
   constructor(props) {
@@ -52,10 +26,7 @@ class DailyFeedback extends Component {
         <h2>Day {this.props.feedback.day}</h2>
         <Status status={this.props.feedback.status} />
         { !this.props.feedback.status &&
-        <div className="flex">
-          <button onClick={() => this.onUpdateStatus('completed')} className="btn btn-green">Complete</button>
-          <button onClick={() => this.onUpdateStatus('skipped')} className="btn btn-orange">Skip</button>
-        </div>}
+        <DailyFeedbackStatusButtons onUpdateStatus={this.onUpdatedStatus} /> }
         <LongTextForm title="Feedback" disabled={!this.props.feedback.status} onSubmit={this.onSaveFeedback} defaultText={this.props.feedback.feedbackText} />
       </div>
     );

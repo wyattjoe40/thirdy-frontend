@@ -17,7 +17,15 @@ class Home extends React.Component {
     // call the API to retrieve challenges
     agent.Challenges.Get({}).then((response) => {
       // once the API call returns then set the challenges data on our state
+      if (!response || !response.body) {
+        console.log("No body for challenges")
+        return
+      }
       this.setState({ challenges: response.body.challenges, loadingState: LoadingState.LOADED });
+    }).catch((err) => {
+      console.log("caught error in home")
+      console.log(err)
+      this.setState({ loadingState: LoadingState.FAILED })
     })
   }
 

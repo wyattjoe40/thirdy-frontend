@@ -32,8 +32,8 @@ class LongTextForm extends Component {
         <h3>{this.props.title}</h3>
         <form onSubmit={this.onSubmit} >
           <div className="flex">
-            <textarea disabled={this.props.disabled} className="flex-1 generic-container" onChange={this.onTextChange} value={this.state.inputText} />
-            <input disabled={this.props.disabled} className="btn btn-green" type="submit" value="Save" />
+            <textarea disabled={this.props.disabled || this.props.saving} className="flex-1 generic-container" onChange={this.onTextChange} value={this.state.inputText} />
+            <input disabled={this.props.disabled || this.props.saving} className="btn btn-green" type="submit" value={ this.props.saving ? "Saving..." : "Save"} />
           </div>
         </form>
       </div>
