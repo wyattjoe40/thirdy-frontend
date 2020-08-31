@@ -19,21 +19,6 @@ class Header extends React.Component {
     this.onLogout = this.onLogout.bind(this)
   }
 
-  componentDidMount() {
-    agent.User.GetCurrent().then((result) => {
-      this.props.userContext.setUser(result.body)
-    }).catch((err) => {
-      if (err.status === 401) {
-        console.log("No current valid cookie")
-        // we don't have access to ourselves, so we are not logged in, which is fine
-        return
-      }
-
-      // unknown issue
-      console.log(err)
-    })
-  }
-
   onSignupClick(event) {
     this.setState({ showSignupModal: true })
   }
