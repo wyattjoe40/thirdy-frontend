@@ -20,7 +20,6 @@ import { faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, 
 import NotFound from './NotFound'
 import ls from 'local-storage'
 import LandingPage from './LandingPage';
-import HamburgerMenu from './HamburgerMenu';
 
 library.add(faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion)
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "./HamburgerMenu.css"
 
 class HamburgerMenu extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class HamburgerMenu extends Component {
           <div className="sm:hidden" onClick={this.closeHamburger}><FontAwesomeIcon icon="times"/></div>
           : <div className="sm:hidden" onClick={this.openHamburger}><FontAwesomeIcon icon="bars"/></div>
         }
-        <ul className={`${dropdownDisplayState} sm:flex`}>
+        <ul id="nav-menu-items" className={`${dropdownDisplayState} sm:flex sm:items-center`}>
           { this.props.children }
         </ul>
       </nav>

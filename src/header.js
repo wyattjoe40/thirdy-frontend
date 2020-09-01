@@ -1,9 +1,9 @@
 import React from 'react'
 //import './header.css'
-import LoginSignupHeader from './loginSignupHeader'
 import HeaderUser from './HeaderUser'
 import agent from './agent'
 import userContext from './userContext'
+import loginContext from './loginContext'
 import BrandLogo from './brandLogo'
 import Link from './link'
 import { withRouter } from 'react-router-dom'
@@ -31,6 +31,8 @@ class Header extends React.Component {
   onLogout() {
     // call the backend
     agent.User.Logout().then((response) => {
+      // BUG BUG: if the cookie is expired I think this errors and we don't
+      // set the user to undefined
       // update the local state
       this.props.userContext.setUser(undefined)
       this.props.history.push('/')
@@ -49,8 +51,8 @@ class Header extends React.Component {
             <li><Link to="/about">About</Link></li>
             {!this.props.userContext.user ?
               <>
-                <li><button onClick={this.onLogin}>Login</button></li>
-                <li><button onClick={this.onSignup}>Signup</button></li>
+                <li><button onClick={this.props.loginContext.startLogin}>Login</button></li>
+                <li><button onClick={this.props.loginContext.startSignup}>Signup</button></li>
               </>
               :
               <>
@@ -88,7 +90,10 @@ class Header extends React.Component {
             */
 
 export default withRouter(React.forwardRef((props, ref) => (
-  <userContext.Consumer>
-    {userContext => (<Header {...props} userContext={userContext} ref={ref} />)}
-  </userContext.Consumer>
+  <loginContext.Consumer>
+    { loginContext => 
+    <userContext.Consumer>
+      {userContext => (<Header {...props} userContext={userContext} loginContext={loginContext} ref={ref} />)}
+    </userContext.Consumer> }
+  </loginContext.Consumer>
 )))
