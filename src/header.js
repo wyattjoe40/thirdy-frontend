@@ -42,24 +42,26 @@ class Header extends React.Component {
   }
 
   render() {
+    // TODO wydavis: Look at cleaning up the header bar's HamburgerMenu, specifically the way we close when an item is clicked. We could pass close function to children. We could wrap children in item that extends the child to "full" width. Another solution is to modify every clickable thing under my menu to expand.
+    // TODO wydavis: UI - change the background of the items to show clickable area
     return (
       <div id="top-bar" className="flex w-full bg-green-600 text-gray-100 items-center justify-around h-18">
         <div className="max-w-screen-lg flex align-stretch flex-row items-center flex-1 justify-between">
           <BrandLogo title={this.props.title} />
           <HamburgerMenu>
-            <li><Link to="/explore">Explore</Link></li>
-            <li><Link to="/about">About</Link></li>
+            <li><Link className="text-left" to="/explore">Explore</Link></li>
+            <li><Link className="text-left" to="/about">About</Link></li>
             {!this.props.userContext.user ?
               <>
-                <li><button onClick={this.props.loginContext.startLogin}>Login</button></li>
-                <li><button onClick={this.props.loginContext.startSignup}>Signup</button></li>
+                <li><button className="text-left w-full" onClick={this.props.loginContext.startLogin}>Login</button></li>
+                <li><button className="text-left w-full" onClick={this.props.loginContext.startSignup}>Signup</button></li>
               </>
               :
               <>
-                <li><Link to="/user/challenges">My Challenges</Link></li>
-                <li><Link to="/user/settings">Settings</Link></li>
-                <li><HeaderUser user={this.props.userContext.user} /></li>
-                <li><button onClick={this.onLogout}>Signout</button></li>
+                <li><Link className="text-left w-full" to="/user/challenges">My Challenges</Link></li>
+                <li><Link className="text-left w-full" to="/user/settings">Settings</Link></li>
+                <li><HeaderUser className="text-left w-full" user={this.props.userContext.user} /></li>
+                <li><button className="text-left w-full" onClick={this.onLogout}>Signout</button></li>
               </>
             }
           </HamburgerMenu>

@@ -20,6 +20,10 @@ import { faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, 
 import NotFound from './NotFound'
 import ls from 'local-storage'
 import LandingPage from './LandingPage';
+import ReactModal from 'react-modal'
+
+const rootId = 'root'
+ReactModal.setAppElement(`#${rootId}`)
 
 library.add(faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion)
 
@@ -107,7 +111,7 @@ class Root extends React.Component {
 }
 
 ReactDOM.render(<Root />,
-  document.getElementById('root')
+  document.getElementById(rootId)
 );
 
 // If you want your app to work offline and load faster, you can change

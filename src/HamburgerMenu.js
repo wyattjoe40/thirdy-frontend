@@ -8,23 +8,9 @@ class HamburgerMenu extends Component {
 
     this.state = {dropdownOpen: false}
 
-    this.onLogin = this.onLogin.bind(this)
-    this.onSignup = this.onSignup.bind(this)
-    this.onDropdownClick = this.onDropdownClick.bind(this)
     this.openHamburger = this.openHamburger.bind(this)
     this.closeHamburger = this.closeHamburger.bind(this)
-  }
-
-  onLogin() {
-    console.log("login")
-  }
-
-  onSignup() {
-    console.log("signup")
-  }
-
-  onDropdownClick() {
-    console.log("dropdown clicked")
+    this.onAnyClick = this.onAnyClick.bind(this)
   }
 
   openHamburger() {
@@ -35,6 +21,13 @@ class HamburgerMenu extends Component {
     this.setState({ dropdownOpen: false })
   }
 
+  onAnyClick(e) {
+    console.log("on any click")
+    if (this.state.dropdownOpen) {
+      this.setState({dropdownOpen: false})
+    }
+  }
+
   render() {
     var dropdownDisplayState
     if (this.state.dropdownOpen) {
@@ -43,7 +36,7 @@ class HamburgerMenu extends Component {
       dropdownDisplayState = "hidden"
     }
     return (
-      <nav>
+      <nav className="text-left" onClick={this.onAnyClick}>
         {this.state.dropdownOpen ?
           <div className="sm:hidden" onClick={this.closeHamburger}><FontAwesomeIcon icon="times"/></div>
           : <div className="sm:hidden" onClick={this.openHamburger}><FontAwesomeIcon icon="bars"/></div>
