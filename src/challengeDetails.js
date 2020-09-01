@@ -41,8 +41,8 @@ class ChallengeDetails extends React.Component {
 
   createLoadedBody() {
     return (
-      <div className="p-3 generic-container flex flex-row flex-1">
-        <div className="flex-1">
+      <div className="w-full p-3 generic-container flex flex-wrap">
+        <div className="w-full md:w-2/3">
           <h2>{this.state.challenge.title}</h2>
           <UserLink username={this.state.challenge.author.username} profilePictureUrl={this.state.challenge.author.profilePictureUrl} />
           <p className="mb-3">{this.state.challenge.description}</p>
@@ -51,8 +51,7 @@ class ChallengeDetails extends React.Component {
               <button className="btn btn-orange" onClick={action}>Start Challenge!</button>
             )} />
         </div>
-
-        <div className="generic-container">
+        <div className="w-full md:w-1/3 generic-container">
           <p>Users currently participating:</p>
           <ul>
             {this.state.challengeActiveUsers &&

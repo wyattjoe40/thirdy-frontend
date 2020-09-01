@@ -1,10 +1,9 @@
 import React from 'react';
-import './Home.css';
 import ChallengePreview from './challengePreview';
 import LoadingState from './loadingState'
 import agent from './agent'
 
-class Home extends React.Component {
+class Explore extends React.Component {
   constructor(props) {
     super(props)
 
@@ -23,7 +22,7 @@ class Home extends React.Component {
       }
       this.setState({ challenges: response.body.challenges, loadingState: LoadingState.LOADED });
     }).catch((err) => {
-      console.log("caught error in home")
+      console.log("caught error in explore")
       console.log(err)
       this.setState({ loadingState: LoadingState.FAILED })
     })
@@ -58,4 +57,4 @@ class Home extends React.Component {
 }
 
 
-export default Home;
+export default Explore;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TimezonePicker from './TimezonePicker';
 
 class Testing extends Component {
   constructor(props) {
@@ -16,16 +15,6 @@ class Testing extends Component {
   render() {
     return (
       <div>
-        <TimezonePicker
-          onChange={this.handleChange}
-          defaultValue={'America/New_York'}
-          unselectLabel="No Timezone"
-          className="bg-green-600"
-          style={{
-            borderRadius: '0.5rem',
-            color: 'white',
-          }}
-        />
       </div>
     );
   }
