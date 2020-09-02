@@ -9,7 +9,7 @@ function compare(one, two) {
 function addComputedValues(challengePart) {
   const todaysFeedback = challengePart.dailyFeedback
     .filter(dailyFeedback => dailyFeedback.day === challengePart.dayOfChallenge)
-    .sort(compare) // TODO wydavis: Does this work?
+    .sort(compare)
   if (todaysFeedback.length > 0) {
     challengePart.newestTodayFeedback = todaysFeedback[0]
   }

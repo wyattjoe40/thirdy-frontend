@@ -22,7 +22,6 @@ class HamburgerMenu extends Component {
   }
 
   onAnyClick(e) {
-    console.log("on any click")
     if (this.state.dropdownOpen) {
       this.setState({dropdownOpen: false})
     }
@@ -35,6 +34,7 @@ class HamburgerMenu extends Component {
     } else {
       dropdownDisplayState = "hidden"
     }
+
     return (
       <nav className="text-left" onClick={this.onAnyClick}>
         {this.state.dropdownOpen ?
