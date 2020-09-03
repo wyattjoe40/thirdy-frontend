@@ -705,6 +705,20 @@ html, body {
   background-color: rgba(113, 128, 150, var(--bg-opacity));
 }
 
+.tab-item-selected {
+  border-bottom-color: white;
+}
+
+/*
+.tab-item-unselected {
+  border-color: transparent;
+}
+*/
+
+.tab-menu, .tab-menu-item {
+  margin-bottom: -1px;
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

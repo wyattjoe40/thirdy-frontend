@@ -69,4 +69,18 @@ html, body {
   @apply bg-gray-600;
 }
 
+.tab-item-selected {
+  border-bottom-color: white;
+}
+
+/*
+.tab-item-unselected {
+  border-color: transparent;
+}
+*/
+
+.tab-menu, .tab-menu-item {
+  margin-bottom: -1px;
+}
+
 @tailwind utilities;
