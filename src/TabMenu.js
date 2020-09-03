@@ -27,8 +27,7 @@ class TabMenu extends Component {
     const unselectedTabItemStyle = allTabItemStyle + "tab-item-unselected border-transparent hover:border-gray-300"
     return (
       <div>
-        { this.props.title && 
-        <h1>{this.props.title}</h1> }
+        { this.props.title && <h1>{this.props.title}</h1> }
         <ul className="tab-menu w-full flex flex-wrap border-b">
           {this.props.children.map((child) => (
             <li className={`${this.isSelected(child) ? selectedTabItemStyle : unselectedTabItemStyle }`}>
