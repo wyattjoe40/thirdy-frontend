@@ -4,7 +4,7 @@ import agent from './agent'
 import Link from './link'
 import DailyFeedbackStatusButtons from './DailyFeedbackStatusButtons'
 import LongTextForm from './LongTextForm'
-import Status from "./Status";
+import DayStatus from "./DayStatus";
 
 class ChallengeParticipationPreview extends Component {
   constructor(props) {
@@ -37,23 +37,22 @@ class ChallengeParticipationPreview extends Component {
     })
   }
 
-  onUpdatedStatus(status) {
+  onUpdatedStatus(status, cb) {
     // set the saving state to true
-    this.setState({ savingStatus: true })
     this.saveNewFeedback({ day: this.props.challengeParticipation.dayOfChallenge, status: status }, (err) => {
-      this.setState({ savingStatus: false })
+      cb(err)
     })
     // in callback set the saving state to false
   }
 
-  onUpdatedFeedback(feedbackText) {
+  onUpdatedFeedback(feedbackText, cb) {
     this.setState({ savingFeedback: true })
     this.saveNewFeedback({
       day: this.props.challengeParticipation.dayOfChallenge,
       status: this.props.challengeParticipation.newestTodayFeedback.status,
       feedbackText: feedbackText
     }, (err) => {
-      this.setState({ savingFeedback: false })
+      return cb(err)
     })
   }
 
@@ -64,10 +63,10 @@ class ChallengeParticipationPreview extends Component {
         <ProgressBar numerator={this.props.challengeParticipation.dayOfChallenge} denominator={30} />
         {this.props.challengeParticipation.newestTodayFeedback ?
           <div>
-            <Status status={this.props.challengeParticipation.newestTodayFeedback.status} />
-            <LongTextForm saving={this.state.savingFeedback} title="Feedback" onSubmit={this.onUpdatedFeedback} defaultText={this.props.challengeParticipation.newestTodayFeedback.feedbackText ?? ''} />
+            <DayStatus status={this.props.challengeParticipation.newestTodayFeedback.status} />
+            <LongTextForm title="Feedback" onSubmit={this.onUpdatedFeedback} defaultText={this.props.challengeParticipation.newestTodayFeedback.feedbackText ?? ''} />
           </div>
-          : <DailyFeedbackStatusButtons saving={this.state.savingStatus} onUpdateStatus={this.onUpdatedStatus} />
+          : <DailyFeedbackStatusButtons onUpdateStatus={this.onUpdatedStatus} />
         }
       </div>
     );

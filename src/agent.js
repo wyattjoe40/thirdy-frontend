@@ -29,6 +29,7 @@ const ChallengeParticipation = {
   Get: (id) => methods.Get(`challenge-participation/${id}`),
   Update: (id, body) => methods.Put(`challenge-participation/${id}`, body),
   Create: (body) => methods.Post(`challenge-participation`, body),
+  Abandon: (id) => ChallengeParticipation.Update(id, { status: 'abandoned' }),
 }
 
 const User = {
@@ -41,6 +42,8 @@ const User = {
   ParticipatingChallenges: (username) => methods.Get(`users/${username}/participating-challenges`),
   //AuthoredChallenges: () => methods.get(),
   ActiveChallenges: () => methods.Get('user/participating-challenges?challenge-status=active'),
+  CompletedChallenges: () => methods.Get('user/participating-challenges?challenge-status=complete'),
+  AbandonedChallenges: () => methods.Get('user/participating-challenges?challenge-status=abandoned'),
   AllChallenges: () => methods.Get('user/participating-challenges'),
   AddProfilePicture: (body) => methods.Post("user/profile-picture", body),
 }

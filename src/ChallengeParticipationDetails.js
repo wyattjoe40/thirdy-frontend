@@ -5,6 +5,12 @@ import DailyFeedbackRow from './DailyFeedbackRow'
 import NavRow from './NavRow'
 import DailyFeedback from './DailyFeedback';
 import Overview from './Overview'
+import Link from './link'
+import ChallengeParticipationStatusGrid from './ChallengeParticipationStatusGrid';
+import TabMenu from './TabMenu'
+import TabMenuItem from './TabMenuItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ThreeButtonMenu from './ThreeButtonMenu';
 
 function newestDailyFeedback(feedbackOne, feedbackTwo) {
   if (feedbackOne.createdAt > feedbackTwo.createdAt) {
@@ -14,10 +20,10 @@ function newestDailyFeedback(feedbackOne, feedbackTwo) {
   }
 }
 
-function createStatusDisplay(statusString) {
+function StatusDisplay(props) {
   var statusText
   var textColor
-  switch(statusString) {
+  switch (props.status) {
     case "completed":
       statusText = "Complete"
       textColor = "text-green-400"
@@ -36,20 +42,20 @@ function createStatusDisplay(statusString) {
   return <p className={textColor}>{statusText}</p>
 }
 
-const SelectedType = Object.freeze({OVERVIEW: 1, DAY: 2})
+const SelectedType = Object.freeze({ OVERVIEW: 1, DAY: 2 })
 
 class ChallengeParticipationDetails extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { selectedType: SelectedType.OVERVIEW, loadingState: LoadingState.NOT_STARTED, challengePart: undefined, feedbacks: undefined, selectedFeedback: undefined }
+    this.state = { selectedType: SelectedType.OVERVIEW, loadingState: LoadingState.NOT_STARTED, challengePart: undefined, feedbacks: {} }
 
     this.getFilteredAllChallengeDays = this.getFilteredAllChallengeDays.bind(this)
-    this.createNavigationView = this.createNavigationView.bind(this)
     this.dayRowIsClicked = this.dayRowIsClicked.bind(this)
     this.updateFeedback = this.updateFeedback.bind(this)
     this.saveFeedback = this.saveFeedback.bind(this)
     this.updateChallengeParticipation = this.updateChallengeParticipation.bind(this)
+    this.onAbandonChallenge = this.onAbandonChallenge.bind(this)
   }
 
   updateFeedback(feedback) {
@@ -58,15 +64,17 @@ class ChallengeParticipationDetails extends Component {
     // TODO wydavis: Will this update the state enough...
   }
 
-  saveFeedback(feedback) {
-    agent.ChallengeParticipation.Update(this.state.challengePart.id, { dailyFeedback: [feedback]}).then((result) => {
+  saveFeedback(feedback, cb) {
+    agent.ChallengeParticipation.Update(this.state.challengePart.id, { dailyFeedback: [feedback] }).then((result) => {
       this.setState((state) => {
         const feedbacks = state.feedbacks
         feedbacks[feedback.day] = feedback
-        return { feedbacks: feedbacks, selectedFeedback: feedback }
+        return { feedbacks: feedbacks }
       })
+      if (cb) cb()
     }).catch((err) => {
       console.log(err)
+      if (cb) cb(err)
     })
   }
 
@@ -88,7 +96,7 @@ class ChallengeParticipationDetails extends Component {
     arr.forEach((index) => {
       var day = index + 1
       if (!latestFeedbacksOverAllDays[day]) {
-        latestFeedbacksOverAllDays[day] = {day: day, status: undefined, feedbackText: ''}
+        latestFeedbacksOverAllDays[day] = { day: day, status: undefined, feedbackText: '' }
       }
     })
     return latestFeedbacksOverAllDays;
@@ -98,7 +106,9 @@ class ChallengeParticipationDetails extends Component {
     // api call to get the details of the challenge part
     this.setState({ loadingState: LoadingState.LOADING })
     agent.ChallengeParticipation.Get(this.props.participationId).then((result) => {
-      this.setState({ challengePart: result.body, feedbacks: this.getFilteredAllChallengeDays(result.body) })
+      const part = result.body
+      const feedbacks = this.getFilteredAllChallengeDays(part)
+      this.setState({ challengePart: part, feedbacks: feedbacks })
       this.setState({ loadingState: LoadingState.LOADED })
     }).catch((err) => {
       console.log(err)
@@ -107,30 +117,26 @@ class ChallengeParticipationDetails extends Component {
   }
 
   dayRowIsClicked(index, e) {
-    this.setState((state) => ({ selectedType: SelectedType.DAY, selectedFeedback: state.feedbacks[index]}))
+    this.setState((state) => ({ selectedType: SelectedType.DAY, selectedFeedback: state.feedbacks[index] }))
   }
 
-  createNavigationView() {
-    return [...Array(30).keys()].map((object, index) => {
-      const dayNumber = index + 1;
-      const feedbackForThisDay = this.state.feedbacks[dayNumber]
-      const isToday = this.state.challengePart.dayOfChallenge === dayNumber
-      const isSelected = (this.state.selectedFeedback && this.state.selectedType === SelectedType.DAY) ? this.state.selectedFeedback.day === dayNumber : false
-      const isDisabled = dayNumber > this.state.challengePart.dayOfChallenge
-      if (!feedbackForThisDay) {
-        return <DailyFeedbackRow isDisabled={isDisabled} isSelected={isSelected} key={dayNumber} onClick={this.dayRowIsClicked} isToday={isToday} day={dayNumber} />
-      } else {
-        return <DailyFeedbackRow isDisabled={isDisabled} isSelected={isSelected} key={dayNumber} onClick={this.dayRowIsClicked} isToday={isToday} status={feedbackForThisDay.status} day={feedbackForThisDay.day} feedbackText={feedbackForThisDay.feedbackText} />
-      }
-    })
-  }
-
-  updateChallengeParticipation(challengePart) {
+  updateChallengeParticipation(challengePart, cb) {
     console.log("challengePart")
     console.log(challengePart)
     agent.ChallengeParticipation.Update(this.state.challengePart.id, challengePart).then((result) => {
-      this.setState({challengePart: result.body})
+      this.setState({ challengePart: result.body })
+      cb()
     }).catch(err => {
+      console.log(err)
+      cb(err)
+    })
+  }
+
+  onAbandonChallenge(e) {
+    agent.ChallengeParticipation.Abandon(this.state.challengePart.id).then((result) => {
+      this.setState({challengePart: result.body})
+    }).catch((err) => {
+      console.log("onAbandonChallenge: ")
       console.log(err)
     })
   }
@@ -144,26 +150,28 @@ class ChallengeParticipationDetails extends Component {
         break;
       case LoadingState.LOADED:
         body = <div className="flex flex-col full-without-header">
+          <a className="mb-2" href="/user/challenges"><FontAwesomeIcon icon="chevron-left" className="mr-2" />Back to My Challenges</a>
           <div className="generic-container">
-            <h2>{this.state.challengePart.challenge.title}</h2>
-            { createStatusDisplay(this.state.challengePart.status) }
-          </div>
-          <div className="flex flex-row w-full overflow-y-auto" >
-            <div className="flex flex-col w-1/4" >
-              <NavRow onClick={() => { this.setState({selectedType: SelectedType.OVERVIEW})}}>
-                <p>Overview</p>
-              </NavRow>
-              <div className="generic-container flex flex-col overflow-y-auto ">
-                {this.createNavigationView()}
-              </div>
+            <div className="flex justify-between">
+              <h2>{this.state.challengePart.challenge.title}</h2>
+              <ThreeButtonMenu>
+                <button className="btn btn-orange" onClick={this.onAbandonChallenge}>Abandon Challenge</button>
+              </ThreeButtonMenu>
             </div>
-            <div className="flex generic-container flex-1 w-3/4">
-              { this.state.selectedType === SelectedType.OVERVIEW && 
-              <Overview updateChallengeParticipation={this.updateChallengeParticipation} challengePart={this.state.challengePart} /> }
-              { this.state.selectedType === SelectedType.DAY && 
-              <DailyFeedback saveFeedback={this.saveFeedback} feedback={this.state.selectedFeedback}/> }
-            </div>
+            <p>Go to <Link className="underline hover:text-blue-600" to={`/challenges/${this.state.challengePart.challenge.slug}`}>challenge page</Link></p>
+            <StatusDisplay status={this.state.challengePart.status} />
           </div>
+          <TabMenu>
+            <TabMenuItem title="Today">
+              <DailyFeedback saveFeedback={this.saveFeedback} feedback={this.state.feedbacks[this.state.challengePart.dayOfChallenge]} />
+            </TabMenuItem>
+            <TabMenuItem title="Overview">
+              <ChallengeParticipationStatusGrid dayOfChallenge={this.state.challengePart.dayOfChallenge} feedbacks={Object.values(this.state.feedbacks)} />
+            </TabMenuItem>
+            <TabMenuItem title="Extras">
+              <Overview updateChallengeParticipation={this.updateChallengeParticipation} challengePart={this.state.challengePart} />
+            </TabMenuItem>
+          </TabMenu>
         </div>
         break;
       case LoadingState.FAILED:

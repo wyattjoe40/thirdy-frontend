@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import LongTextForm from './LongTextForm'
 import DailyFeedbackStatusButtons from './DailyFeedbackStatusButtons'
-import Status from './Status'
+import DayStatus from './DayStatus'
+import PropTypes from 'prop-types'
 
 class DailyFeedback extends Component {
   constructor(props) {
@@ -11,26 +12,30 @@ class DailyFeedback extends Component {
     this.onSaveFeedback = this.onSaveFeedback.bind(this)
   }
 
-  onUpdateStatus(status) {
-    this.props.saveFeedback({day: this.props.feedback.day, status: status})
+  onUpdateStatus(status, cb) {
+    this.props.saveFeedback({day: this.props.feedback.day, status: status}, cb)
   }
 
-  onSaveFeedback(text) {
+  onSaveFeedback(text, cb) {
     // TODO wydavis: There's a bug when we pass in 'none' as the props for status, it is not allowed on the backend
-    this.props.saveFeedback({feedbackText: text, day: this.props.feedback.day, status: this.props.feedback.status})
+    this.props.saveFeedback({feedbackText: text, day: this.props.feedback.day, status: this.props.feedback.status}, cb)
   }
 
   render() {
     return (
       <div className="w-full">
         <h2>Day {this.props.feedback.day}</h2>
-        <Status status={this.props.feedback.status} />
+        <DayStatus status={this.props.feedback.status} />
         { !this.props.feedback.status &&
-        <DailyFeedbackStatusButtons onUpdateStatus={this.onUpdatedStatus} /> }
+        <DailyFeedbackStatusButtons onUpdateStatus={this.onUpdateStatus} /> }
         <LongTextForm title="Feedback" disabled={!this.props.feedback.status} onSubmit={this.onSaveFeedback} defaultText={this.props.feedback.feedbackText} />
       </div>
     );
   }
+}
+
+DailyFeedback.propTypes = {
+  saveFeedback: PropTypes.func.isRequired
 }
 
 export default DailyFeedback;

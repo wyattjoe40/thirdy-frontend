@@ -13,18 +13,17 @@ class Overview extends Component {
     this.submitPostComment = this.submitPostComment.bind(this)
   }
 
-  submitPreComment(comment) {
-    this.props.updateChallengeParticipation({ preChallengeComment: comment })
+  submitPreComment(comment, cb) {
+    this.props.updateChallengeParticipation({ preChallengeComment: comment }, cb)
   }
 
-  submitPostComment(comment) {
-    this.props.updateChallengeParticipation({ postChallengeComment: comment })
+  submitPostComment(comment, cb) {
+    this.props.updateChallengeParticipation({ postChallengeComment: comment }, cb)
   }
 
   render() {
     return (
       <div className="w-full">
-        <p>Current day: {this.props.challengePart.dayOfChallenge}</p>
         <LongTextForm title="Pre-Challenge Comments" defaultText={this.props.challengePart.preChallengeComment} onSubmit={this.submitPreComment} />
         {this.state.challengePart.status === 'completed' &&
           <LongTextForm title="Post-Challenge Comments" defaultText={this.props.challengePart.postChallengeComment} onSubmit={this.submitPostComment} />}

@@ -7,7 +7,7 @@ import {Link as RRLink} from 'react-router-dom'
  */
 class Link extends React.Component {
   render() {
-    return <RRLink to={this.props.to}>{this.props.children}</RRLink>
+    return <RRLink to={this.props.to} {...this.props}>{this.props.children}</RRLink>
   }
 }
 

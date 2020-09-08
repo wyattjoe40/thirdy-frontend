@@ -7,7 +7,6 @@ import PrivateRoute from './PrivateRoute'
 import Profile from './profile'
 import LoginSignupModal from './loginSignupModal'
 import ChallengeParticipationDetails from './ChallengeParticipationDetails'
-import MyChallenges from './MyChallenges'
 import MySettings from './MySettings'
 import Testing from './Testing'
 import * as serviceWorker from './serviceWorker';
@@ -16,16 +15,17 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import loginContext, { CurrentScreen } from './loginContext'
 import userContext from './userContext'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faChevronLeft, faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion } from '@fortawesome/free-solid-svg-icons'
 import NotFound from './NotFound'
 import ls from 'local-storage'
 import LandingPage from './LandingPage';
+import MyChallenges from './MyChallenges';
 import ReactModal from 'react-modal'
 
 const rootId = 'root'
 ReactModal.setAppElement(`#${rootId}`)
 
-library.add(faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion)
+library.add(faEllipsisV, faChevronLeft, faTimes, faBars, faCircle, faCheckCircle, faTimesCircle, faCommentAlt, faQuestion)
 
 // set context here
 class Root extends React.Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-class Status extends Component {
+class DayStatus extends Component {
   render() {
     var statusDisplayText
     var statusDisplayIcon
@@ -29,4 +29,4 @@ class Status extends Component {
 }
 
 
-export default Status;
+export default DayStatus;

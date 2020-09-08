@@ -31,7 +31,7 @@ class TabMenu extends Component {
         <ul className="tab-menu w-full flex flex-wrap border-b">
           {this.props.children.map((child) => (
             <li className={`${this.isSelected(child) ? selectedTabItemStyle : unselectedTabItemStyle }`}>
-              <button onClick={this.onTabSelected}  className="px-4 py-2 outline-none">{child.props.title}</button>
+              <button onClick={this.onTabSelected}  className="px-4 py-2 focus:outline-none">{child.props.title}</button>
             </li>
           ))}
         </ul>
