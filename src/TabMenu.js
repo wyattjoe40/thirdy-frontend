@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import withTabContext from './withTabContext';
 
 class TabMenu extends Component {
   constructor(props) {
     super(props)
 
-    if (this.props.children) {
-      const validChildren = this.props.children.filter(child => child)
-      if (validChildren.length > 0) {
-        this.state = { selectedTab: validChildren[0].props.title }
+    const previouslySelectedTab = this.props.tabContext.selectedTabs[this.props.title];
+    if (previouslySelectedTab) {
+      console.log("found previously selected tab")
+      this.state = { selectedTab: previouslySelectedTab }
+    } else {
+      console.log("no previously selected tab")
+      if (this.props.children) {
+        const validChildren = this.props.children.filter(child => child)
+        if (validChildren.length > 0) {
+          this.state = { selectedTab: validChildren[0].props.title }
+        }
       }
     }
 
@@ -17,7 +25,10 @@ class TabMenu extends Component {
 
   onTabSelected(e) {
     e.preventDefault()
-    this.setState({ selectedTab: e.target.innerText })
+    const selectedTab = e.target.innerText
+    this.setState({ selectedTab: selectedTab})
+    console.log("Settings state: " + this.props.title + ": " + selectedTab)
+    this.props.tabContext.setSelectedTab(this.props.title, selectedTab)
   }
 
   isSelected(child) {
@@ -29,7 +40,7 @@ class TabMenu extends Component {
     const selectedTabItemStyle = allTabItemStyle + "tab-item-selected"
     const unselectedTabItemStyle = allTabItemStyle + "tab-item-unselected border-transparent hover:border-gray-300"
     return (
-      <div {...this.props}>
+      <div className={this.props.className}>
         { this.props.title && <h1>{this.props.title}</h1> }
         <ul className="tab-menu w-full flex flex-wrap border-b">
           {this.props.children.filter(child => child).map((child) => (
@@ -46,4 +57,4 @@ class TabMenu extends Component {
   }
 }
 
-export default TabMenu;
+export default withTabContext(TabMenu);

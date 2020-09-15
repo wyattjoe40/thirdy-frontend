@@ -26,18 +26,19 @@ class Profile extends React.Component {
 
   buildChallengeGrid(title, challenges) {
     return (
-      <div className="generic-container w-full">
+      <div className="generic-container w-full mb-4">
         <h2 className="self-start">{title}</h2>
-        <div className="flex w-full flex-wrap" >
+        <div className="flex w-full flex-wrap items-stretch" >
           {challenges.map((part) =>
-
-            <div className="generic-container w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-              <h3>
-                <Link to={`/challenges/${part.challenge.slug}`}>
-                  {part.challenge.title}
-                </Link>
-              </h3>
-              <p>Days done: {part.dayOfChallenge}</p>
+            <div className="w-full h-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 pr-4 pb-4">
+              <div className="w-full h-full generic-container">
+                <h3>
+                  <Link to={`/challenges/${part.challenge.slug}`}>
+                    {part.challenge.title}
+                  </Link>
+                </h3>
+                <p>Days done: {part.dayOfChallenge}</p>
+              </div>
             </div>
           )}
         </div>

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ProgressBar extends Component {
   render() {
     return (
-      <div className="m-2">
+      <div>
         {this.props.numerator} / {this.props.denominator}
       </div>
     );

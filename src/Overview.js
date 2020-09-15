@@ -25,7 +25,7 @@ class Overview extends Component {
   render() {
     return (
       <div className="w-full">
-        <LongTextForm title="Pre-Challenge Comments" defaultText={this.props.challengePart.preChallengeComment} onSubmit={this.submitPreComment} />
+        <LongTextForm className="mb-4" title="Pre-Challenge Comments" defaultText={this.props.challengePart.preChallengeComment} onSubmit={this.submitPreComment} />
         {isFinished(this.props.challengePart) &&
           <LongTextForm title="Post-Challenge Comments" defaultText={this.props.challengePart.postChallengeComment} onSubmit={this.submitPostComment} />}
       </div>

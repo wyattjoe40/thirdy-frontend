@@ -51,6 +51,7 @@ class ChallengeDetails extends React.Component {
             {action => (
               <button className="btn btn-orange" onClick={action}>Start Challenge!</button>
             )} />
+          <p className="mt-3">Users have completed this challenge {this.state.challenge.completedCount} times!</p>
         </div>
         <div className="w-full md:w-1/3 generic-container">
           <p>Users currently participating:</p>

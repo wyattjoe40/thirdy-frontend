@@ -11,6 +11,7 @@ import Header from './header'
 import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import loginContext, { CurrentScreen } from './loginContext'
 import userContext from './userContext'
+import tabContext from './tabContext'
 import NotFound from './NotFound'
 import ls from 'local-storage'
 import LandingPage from './LandingPage';
@@ -23,13 +24,27 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { user: ls('user'), openLoginState: false, isLoginOpen: false, currentScreen: CurrentScreen.LOGIN }
+    this.state = { selectedTabs: ls('selectedTabs') || {}, user: ls('user'), openLoginState: false, isLoginOpen: false, currentScreen: CurrentScreen.LOGIN }
 
     this.setUser = this.setUser.bind(this)
     this.startLogin = this.startLogin.bind(this)
     this.startSignup = this.startSignup.bind(this)
     this.closeLogin = this.closeLogin.bind(this)
     this.setCurrentScreen = this.setCurrentScreen.bind(this)
+    this.setSelectedTab = this.setSelectedTab.bind(this)
+  }
+
+  setSelectedTab(key, value) {
+    if (!key) {
+      return
+    }
+
+    const selectedTabs = this.state.selectedTabs
+    selectedTabs[key] = value
+    this.setState({
+      selectedTabs: selectedTabs
+    })
+    ls('selectedTabs', selectedTabs)
   }
 
   startLogin() {
@@ -63,37 +78,39 @@ class App extends React.Component {
         <Router history={history}>
           <loginContext.Provider value={{ startLogin: this.startLogin, startSignup: this.startSignup, closeLogin: this.closeLogin, isLoginOpen: this.state.isLoginOpen, currentScreen: this.state.currentScreen, setCurrentScreen: this.setCurrentScreen }}>
             <userContext.Provider value={{ user: this.state.user, setUser: this.setUser }} >
-              <Header title="thirdy" />
-              <LoginSignupModal />
-              <div id="main-react-content" className="max-w-screen-lg mx-auto mt-4">
-                <Switch>
-                  <Route exact={true} path="/">
-                    { this.state.user ?
-                      <Redirect to="/user/challenges" />
-                      : <LandingPage />}
-                  </Route>
-                  <Route exact={true} path="/explore" component={Explore} />
-                  <Route exact={true} path="/search" component={Search} />
-                  <Route path="/profiles/:username" render={({ match }) => (
-                    <Profile username={match.params.username} />
-                  )} />
-                  <Route path="/challenges/:slug" render={({ match }) => (
-                    <ChallengeDetails onLogin={this.openLogin} slug={match.params.slug} />
-                  )} />
-                  <Route path="/user/challenges/:participationId" render={({ match }) => (
-                    <ChallengeParticipationDetails participationId={match.params.participationId} />
-                  )} />
-                  <Route path="/signout" component={Signout} />
-                  <Route path="/testing" component={Testing} />
-                  <PrivateRoute exact={true} path="/user/challenges">
-                    <MyChallenges />
-                  </PrivateRoute>
-                  <PrivateRoute exact={true} path="/user/settings">
-                    <MySettings />
-                  </PrivateRoute>
-                  <Route path="*" component={NotFound} />
-                </Switch>
-              </div>
+              <tabContext.Provider value={{ selectedTabs: this.state.selectedTabs, setSelectedTab: this.setSelectedTab }} >
+                <Header title="thirdy" />
+                <LoginSignupModal />
+                <div id="main-react-content" className="max-w-screen-lg mx-auto mt-4">
+                  <Switch>
+                    <Route exact={true} path="/">
+                      {this.state.user ?
+                        <Redirect to="/user/challenges" />
+                        : <LandingPage />}
+                    </Route>
+                    <Route exact={true} path="/explore" component={Explore} />
+                    <Route exact={true} path="/search" component={Search} />
+                    <Route path="/profiles/:username" render={({ match }) => (
+                      <Profile username={match.params.username} />
+                    )} />
+                    <Route path="/challenges/:slug" render={({ match }) => (
+                      <ChallengeDetails onLogin={this.openLogin} slug={match.params.slug} />
+                    )} />
+                    <Route path="/user/challenges/:participationId" render={({ match }) => (
+                      <ChallengeParticipationDetails participationId={match.params.participationId} />
+                    )} />
+                    <Route path="/signout" component={Signout} />
+                    <Route path="/testing" component={Testing} />
+                    <PrivateRoute exact={true} path="/user/challenges">
+                      <MyChallenges />
+                    </PrivateRoute>
+                    <PrivateRoute exact={true} path="/user/settings">
+                      <MySettings />
+                    </PrivateRoute>
+                    <Route path="*" component={NotFound} />
+                  </Switch>
+                </div>
+              </tabContext.Provider>
             </userContext.Provider>
           </loginContext.Provider>
         </Router>

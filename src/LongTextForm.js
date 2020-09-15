@@ -50,7 +50,7 @@ class LongTextForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className}>
         {this.props.title && <h3>{this.props.title}</h3>}
         {this.state.editable ?
           <form onSubmit={this.onSubmit} >
