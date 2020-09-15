@@ -37,14 +37,14 @@ class MySettings extends Component {
       <div className="generic-container">
         <h2>Settings</h2>
         <h3>Username</h3>
-        <p>{this.props.userContext.user.username}</p>
+        <p className="ml-2">{this.props.userContext.user.username}</p>
         <h3>Upload Profile Picture</h3>
-        <input id="file-picker" type="file" name="image" onChange={this.onFileChange} />
-        <button disabled={!this.state.selectedImage} onClick={this.onUploadImage}>Upload</button>
+        <input className="ml-2 generic-container" id="file-picker" type="file" name="image" onChange={this.onFileChange} />
+        <button className="ml-2 btn btn-green" disabled={!this.state.selectedImage} onClick={this.onUploadImage}>Upload</button>
         <h3>Email</h3>
-        <p>{this.props.userContext.user.email}</p>
+        <p className="ml-2">{this.props.userContext.user.email}</p>
         <h3>Timezone</h3>
-        <p>{this.props.userContext.user.timezone}</p>
+        <p className="ml-2">{this.props.userContext.user.timezone}</p>
       </div>
     );
   }

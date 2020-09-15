@@ -1,15 +1,15 @@
 @tailwind base;
 
 h1 {
-  @apply text-5xl m-2;
+  @apply text-5xl;
 }
 
 h2 {
-  @apply text-3xl m-2;
+  @apply text-3xl;
 }
 
 h3 {
-  @apply text-xl m-2;
+  @apply text-xl;
 }
 
 html, body {
@@ -87,6 +87,10 @@ button:hover {
   @apply bg-green-600 text-white
 }
 
+.feedback-circle.selected {
+  @apply border-8 border-transparent border-black my-0
+}
+
 .feedback-circle.skipped {
   @apply bg-orange-600 text-white
 }
@@ -96,11 +100,14 @@ button:hover {
 }
 
 .feedback-circle.today {
-  @apply border-8 border-transparent border-black my-0
 }
 
 .feedback-circle {
   @apply bg-white my-2 mx-auto text-black 
+}
+
+.challenge-list li {
+  @apply my-2;
 }
 
 .status.abandoned {

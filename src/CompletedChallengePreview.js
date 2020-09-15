@@ -8,7 +8,7 @@ class CompletedChallengePreview extends Component {
     return (
       <div className="generic-container">
         <Link to={`/user/challenges/${this.props.challengePart.id}`}><h3>{this.props.challengePart.challenge.title}</h3></Link>
-        <CompletedStatus status={this.props.challengePart.status} />
+        <CompletedStatus className="ml-2" status={this.props.challengePart.status} />
         {/* this.props.challengePart.newestTodayFeedback ?
           <div>
             <Status status={this.props.challengePart.newestTodayFeedback.status} />

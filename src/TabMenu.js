@@ -4,8 +4,11 @@ class TabMenu extends Component {
   constructor(props) {
     super(props)
 
-    if (this.props.children && this.props.children.length > 0) {
-      this.state = { selectedTab: this.props.children[0].props.title }
+    if (this.props.children) {
+      const validChildren = this.props.children.filter(child => child)
+      if (validChildren.length > 0) {
+        this.state = { selectedTab: validChildren[0].props.title }
+      }
     }
 
     this.onTabSelected = this.onTabSelected.bind(this)
@@ -26,17 +29,17 @@ class TabMenu extends Component {
     const selectedTabItemStyle = allTabItemStyle + "tab-item-selected"
     const unselectedTabItemStyle = allTabItemStyle + "tab-item-unselected border-transparent hover:border-gray-300"
     return (
-      <div>
+      <div {...this.props}>
         { this.props.title && <h1>{this.props.title}</h1> }
         <ul className="tab-menu w-full flex flex-wrap border-b">
-          {this.props.children.map((child) => (
-            <li className={`${this.isSelected(child) ? selectedTabItemStyle : unselectedTabItemStyle }`}>
+          {this.props.children.filter(child => child).map((child) => (
+            <li key={child.props.title} className={`${this.isSelected(child) ? selectedTabItemStyle : unselectedTabItemStyle }`}>
               <button onClick={this.onTabSelected}  className="px-4 py-2 focus:outline-none">{child.props.title}</button>
             </li>
           ))}
         </ul>
         <div className="mt-2">
-          { this.props.children.filter((child) => this.isSelected(child)) }
+          { this.props.children.filter(child => child).filter((child) => this.isSelected(child)) }
         </div>
       </div>
     );

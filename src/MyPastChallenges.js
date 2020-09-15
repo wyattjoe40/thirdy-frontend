@@ -20,11 +20,11 @@ class MyPastChallenges extends Component {
 
   render() {
     return (
-      <div>
+      <ul className="challenge-list">
         { this.state.challengeParts.map((challenge) => (
-          <CompletedChallengePreview challengePart={challenge} />
+          <li key={challenge.id}><CompletedChallengePreview challengePart={challenge} /></li>
         )) }
-      </div>
+      </ul>
     );
   }
 }

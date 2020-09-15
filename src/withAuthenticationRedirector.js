@@ -14,27 +14,25 @@ function withAuthenticationRedirector(WrappedComponent) {
     constructor(props) {
       super(props)
 
-      this.catchUnauthenticated = this.catchUnauthenticated.bind(this)
+      this.redirectOnUnauthenticated = this.redirectOnUnauthenticated.bind(this)
     }
 
-    catchUnauthenticated(promise) {
-      return promise.catch((err) => {
-        console.log("catchUnauthenticated is called.")
-        console.log(err);
-        // if 401, delete user from userContext and go home
-        // if not, pass the error through
-        if (err.status === 401) {
-          this.props.userContext.setUser(undefined)
-          this.props.history.push("/", { error: "You are not logged in. Please login."})
-          return Promise.reject(new AuthenticationError())
-        } else {
-          return Promise.reject(err)
-        }
-      })
+    redirectOnUnauthenticated(err) {
+      console.log("redirectOnUnauthenticated is called.")
+      console.log(err);
+      // if 401, delete user from userContext and go home
+      // if not, pass the error through
+      if (err.status === 401) {
+        this.props.userContext.setUser(undefined)
+        this.props.history.push("/", { error: "You are not logged in. Please login."})
+        return Promise.reject(new AuthenticationError())
+      } else {
+        return Promise.reject(err)
+      }
     }
 
     render() {
-      return <WrappedComponent catchUnauthenticated={this.catchUnauthenticated} {...this.props} />
+      return <WrappedComponent redirectOnUnauthenticated={this.redirectOnUnauthenticated} {...this.props} />
     }
   }
 

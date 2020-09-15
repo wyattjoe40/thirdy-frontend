@@ -9,8 +9,8 @@ class ChallengePreview extends React.Component {
         <Link to={`/challenges/${this.props.slug}`} >
           <h3>{this.props.title}</h3>
         </Link>
-        <p className="text-gray-700 pb-2">{this.props.description}</p>
-        <div className="flex flex-row items-center">
+        <p className="ml-2 text-gray-700 pb-2">{this.props.description}</p>
+        <div className="ml-2 flex flex-row items-center">
           <p className="text-gray-700 mr-2">By</p>
           <UserLink username={this.props.author.username} profilePictureUrl={this.props.author.profilePictureUrl} />
         </div>

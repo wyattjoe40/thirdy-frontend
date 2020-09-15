@@ -23,10 +23,9 @@ class DailyFeedbackStatusButtons extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="flex items-center">
-        <button disabled={this.state.saving} onClick={() => this.onStatusSelected('completed')} className="btn btn-green">Complete</button>
+        <button className="mr-2 btn btn-green" disabled={this.state.saving} onClick={() => this.onStatusSelected('completed')}>Complete</button>
         <button disabled={this.state.saving} onClick={() => this.onStatusSelected('skipped')} className="btn btn-orange">Skip</button>
         { this.state.saving && <p>Saving...</p>}
       </div>

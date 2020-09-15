@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import agent from './agent';
-import withAuthenticationRedirector, { AuthenticationError } from './withAuthenticationRedirector'
+import { AuthenticationError } from './withAuthenticationRedirector'
 
 
 class Testing extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-    this.props.catchUnauthenticated(agent.User.GetCurrent()).then((result) => {
+    agent.User.GetCurrent().catch(this.props.redirectOnUnauthenticated).then((result) => {
       console.log("Testing, then")
       console.log(result)
     }).catch((err) => {
@@ -28,4 +24,4 @@ class Testing extends Component {
   }
 }
 
-export default withAuthenticationRedirector(Testing)
+export default Testing

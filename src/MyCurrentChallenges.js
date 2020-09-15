@@ -68,11 +68,13 @@ class MyCurrentChallenges extends Component {
     // list of challenge participation previews
     return (
       <div className="flex-1">
-        {this.state.challengeParts.map((part) => (
-          <div key={part.id}>
-            <ChallengeParticipationPreview updateChallenge={this.updateChallenge} challengeParticipation={part} />
-          </div>
-        ))}
+        <ul className="challenge-list">
+          {this.state.challengeParts.map((part) => (
+            <li key={part.id}>
+              <ChallengeParticipationPreview updateChallenge={this.updateChallenge} challengeParticipation={part} />
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

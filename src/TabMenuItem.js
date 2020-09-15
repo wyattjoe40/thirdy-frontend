@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class TabMenuItem extends Component {
   render() {
     return (
-      <div>
+      <div className="p-2">
         {this.props.children}
       </div>
     );

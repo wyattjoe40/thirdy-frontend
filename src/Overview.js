@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LongTextForm from './LongTextForm'
+import { isFinished } from './ChallengeParticipationHelpers'
 
 class Overview extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class Overview extends Component {
     return (
       <div className="w-full">
         <LongTextForm title="Pre-Challenge Comments" defaultText={this.props.challengePart.preChallengeComment} onSubmit={this.submitPreComment} />
-        {this.state.challengePart.status === 'completed' &&
+        {isFinished(this.props.challengePart) &&
           <LongTextForm title="Post-Challenge Comments" defaultText={this.props.challengePart.postChallengeComment} onSubmit={this.submitPostComment} />}
       </div>
     );

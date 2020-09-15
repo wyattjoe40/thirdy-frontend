@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function CompletedStatus(props) {
+function CompletedStatus({className, status}) {
   var icon
   var text
-  switch (props.status) {
+  switch (status) {
     case "complete":
       text = "Complete"
       icon = "check-circle"
@@ -18,7 +18,7 @@ function CompletedStatus(props) {
       icon = "question"
       break;
   }
-  return (<div><FontAwesomeIcon icon={icon} className={`status ${props.status}`}/><span >{text}</span></div>)
+  return (<div className={className}><FontAwesomeIcon icon={icon} className={`status ${status}`}/><span className="ml-2">{text}</span></div>)
 }
 
 export default CompletedStatus;

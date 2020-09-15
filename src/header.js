@@ -8,6 +8,7 @@ import BrandLogo from './brandLogo'
 import Link from './link'
 import { withRouter } from 'react-router-dom'
 import HamburgerMenu from './HamburgerMenu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Header extends React.Component {
   constructor(props) {
@@ -49,8 +50,8 @@ class Header extends React.Component {
         <div className="max-w-screen-lg flex align-stretch flex-row items-center flex-1 justify-between">
           <BrandLogo title={this.props.title} />
           <HamburgerMenu>
+            <li><Link className="text-left" to="/search"><FontAwesomeIcon icon="search" /></Link></li>
             <li><Link className="text-left" to="/explore">Explore</Link></li>
-            <li><Link className="text-left" to="/about">About</Link></li>
             {!this.props.userContext.user ?
               <>
                 <li><button className="text-left w-full" onClick={this.props.loginContext.startLogin}>Login</button></li>

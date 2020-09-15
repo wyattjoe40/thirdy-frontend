@@ -55,14 +55,14 @@ class LongTextForm extends Component {
         {this.state.editable ?
           <form onSubmit={this.onSubmit} >
             <div className="flex flex-wrap">
-              <textarea className="w-full sm:w-4/5 generic-container" disabled={this.props.disabled || this.props.saving} onChange={this.onTextChange} value={this.state.inputText} />
-              <input className="btn btn-green w-full sm:w-1/10" disabled={this.props.disabled || this.state.saving} type="submit" value={this.state.saving ? "Saving..." : "Save"} />
-              <button onClick={this.cancelButtonClicked} className="btn btn-orange w-full sm:w-1/10" disabled={this.props.disabled || this.state.saving} >Cancel</button> 
+              <div className="pr-0 sm:pr-2 w-full sm:w-4/5"><textarea className="w-full h-full generic-container" disabled={this.props.disabled || this.props.saving} onChange={this.onTextChange} value={this.state.inputText} /></div>
+              <div className="pr-0 sm:pr-2 w-full sm:w-1/10"><input className="btn btn-green w-full" disabled={this.props.disabled || this.state.saving} type="submit" value={this.state.saving ? "Saving..." : "Save"} /></div>
+              <div className="w-full sm:w-1/10"><button className="btn btn-orange w-full" onClick={this.cancelButtonClicked} disabled={this.props.disabled || this.state.saving} >Cancel</button></div>
             </div>
           </form>
           :
           <div className="flex flex-wrap">
-            <p className="w-full sm:w-4/5 generic-container">{this.state.inputText}</p>
+            <span className="pr-0 sm:pr-2 w-full sm:w-4/5"><p className="h-full w-full generic-container">{this.state.inputText}</p></span>
             <button className="btn btn-gray w-full sm:w-1/5" onClick={this.editButtonClicked} disabled={this.props.disabled}>Edit</button>
           </div>
         }

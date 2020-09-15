@@ -4,6 +4,7 @@ import agent from './agent'
 import { withRouter } from 'react-router-dom'
 import UserLink from './UserLink'
 import LoginRequiredAction from './LoginRequiredAction'
+import withAuthenticationRedirector from './withAuthenticationRedirector'
 
 class ChallengeDetails extends React.Component {
   constructor(props) {
@@ -84,4 +85,4 @@ class ChallengeDetails extends React.Component {
   }
 }
 
-export default withRouter(ChallengeDetails)
+export default withAuthenticationRedirector(withRouter(ChallengeDetails))

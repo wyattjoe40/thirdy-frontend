@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import LoadingState from './loadingState'
 import agent from './agent'
-import DailyFeedbackRow from './DailyFeedbackRow'
-import NavRow from './NavRow'
+import { isFinished } from './ChallengeParticipationHelpers'
 import DailyFeedback from './DailyFeedback';
 import Overview from './Overview'
 import Link from './link'
@@ -52,16 +51,9 @@ class ChallengeParticipationDetails extends Component {
 
     this.getFilteredAllChallengeDays = this.getFilteredAllChallengeDays.bind(this)
     this.dayRowIsClicked = this.dayRowIsClicked.bind(this)
-    this.updateFeedback = this.updateFeedback.bind(this)
     this.saveFeedback = this.saveFeedback.bind(this)
     this.updateChallengeParticipation = this.updateChallengeParticipation.bind(this)
     this.onAbandonChallenge = this.onAbandonChallenge.bind(this)
-  }
-
-  updateFeedback(feedback) {
-    // find the feedback for the given day
-    // update the values
-    // TODO wydavis: Will this update the state enough...
   }
 
   saveFeedback(feedback, cb) {
@@ -149,24 +141,27 @@ class ChallengeParticipationDetails extends Component {
         body = <div>Loading...</div>
         break;
       case LoadingState.LOADED:
+        const finished = isFinished(this.state.challengePart)
         body = <div className="flex flex-col full-without-header">
           <a className="mb-2" href="/user/challenges"><FontAwesomeIcon icon="chevron-left" className="mr-2" />Back to My Challenges</a>
           <div className="generic-container">
             <div className="flex justify-between">
               <h2>{this.state.challengePart.challenge.title}</h2>
+              { !finished && 
               <ThreeButtonMenu>
                 <button className="btn btn-orange" onClick={this.onAbandonChallenge}>Abandon Challenge</button>
-              </ThreeButtonMenu>
+              </ThreeButtonMenu> }
             </div>
             <p>Go to <Link className="underline hover:text-blue-600" to={`/challenges/${this.state.challengePart.challenge.slug}`}>challenge page</Link></p>
             <StatusDisplay status={this.state.challengePart.status} />
           </div>
-          <TabMenu>
+          <TabMenu className="mt-2">
+            { !finished && 
             <TabMenuItem title="Today">
               <DailyFeedback saveFeedback={this.saveFeedback} feedback={this.state.feedbacks[this.state.challengePart.dayOfChallenge]} />
-            </TabMenuItem>
+            </TabMenuItem> }
             <TabMenuItem title="Overview">
-              <ChallengeParticipationStatusGrid dayOfChallenge={this.state.challengePart.dayOfChallenge} feedbacks={Object.values(this.state.feedbacks)} />
+              <ChallengeParticipationStatusGrid uneditable={finished} saveFeedback={this.saveFeedback} complete={finished} dayOfChallenge={this.state.challengePart.dayOfChallenge} feedbacks={Object.values(this.state.feedbacks)} />
             </TabMenuItem>
             <TabMenuItem title="Extras">
               <Overview updateChallengeParticipation={this.updateChallengeParticipation} challengePart={this.state.challengePart} />

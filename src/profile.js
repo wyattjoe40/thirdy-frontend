@@ -2,6 +2,7 @@ import React from 'react'
 import agent from './agent'
 import RoundImage from './RoundImage'
 import Link from './link'
+import { isFinished } from './ChallengeParticipationHelpers'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class Profile extends React.Component {
         <RoundImage alt="profile" src={this.state.user.profilePictureUrl} />
         <h2>{this.state.user.username}</h2>
         {this.buildChallengeGrid("Active Challenges", this.state.challengeParts.filter(part => part.status === 'active'))}
-        {this.buildChallengeGrid("Completed Challenges", this.state.challengeParts.filter(part => part.status === 'complete'))}
+        {this.buildChallengeGrid("Completed Challenges", this.state.challengeParts.filter(part => isFinished(part)))}
       </div>
     )
   }

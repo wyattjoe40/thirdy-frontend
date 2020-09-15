@@ -1,18 +1,30 @@
-import superagentPromise from 'superagent-promise';
-import _superagent from 'superagent';
-
-const superagent = superagentPromise(_superagent, global.Promise);
+import superagent from 'superagent';
+import history from './history'
 
 const host = "http://localhost:3001/api"
+//const host = "https://thirdy-backend.azurewebsites.net/api"
+
 
 function createUrl(route) {
   return `${host}/${route}`
 }
 
+function unauthorizedRedirect(req) {
+  req.on('response', function (res) {
+    if (res.status === 401) {
+      console.log("Unauthorized. Redirecting.")
+      history.push('/signout')
+    }
+  })
+}
+
+const agent = superagent.agent()
+agent.use(unauthorizedRedirect)
+
 const methods = {
-  Get: (route, options) => superagent.get(createUrl(route)).withCredentials().query(options ?? {}),
-  Post: (route, body) => superagent.post(createUrl(route)).withCredentials().send(body ?? {}),
-  Put: (route, body) => superagent.put(createUrl(route)).withCredentials().send(body ?? {}),
+  Get: (route, options) => agent.get(createUrl(route)).withCredentials().query(options ?? {}),
+  Post: (route, body) => agent.post(createUrl(route)).withCredentials().send(body ?? {}),
+  Put: (route, body) => agent.put(createUrl(route)).withCredentials().send(body ?? {}),
 }
 
 const Challenge = {
@@ -23,6 +35,8 @@ const Challenge = {
 
 const Challenges = {
   Get: (options) => methods.Get("challenges", options),
+  ForAuthor: (username) => methods.Get(`challenges?author=${username}`),
+  Search: (query) => methods.Get(`challenges?filter=${query}`)
 }
 
 const ChallengeParticipation = {
@@ -40,7 +54,6 @@ const User = {
   GetCurrent: () => methods.Get('users'),
   GetUser: (username) => methods.Get(`users/${username}`),
   ParticipatingChallenges: (username) => methods.Get(`users/${username}/participating-challenges`),
-  //AuthoredChallenges: () => methods.get(),
   ActiveChallenges: () => methods.Get('user/participating-challenges?challenge-status=active'),
   CompletedChallenges: () => methods.Get('user/participating-challenges?challenge-status=complete'),
   AbandonedChallenges: () => methods.Get('user/participating-challenges?challenge-status=abandoned'),

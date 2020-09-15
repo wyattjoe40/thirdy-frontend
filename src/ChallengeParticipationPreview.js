@@ -60,13 +60,13 @@ class ChallengeParticipationPreview extends Component {
     return (
       <div className="generic-container">
         <Link to={`/user/challenges/${this.props.challengeParticipation.id}`}><h3>{this.props.challengeParticipation.challenge.title}</h3></Link>
-        <ProgressBar numerator={this.props.challengeParticipation.dayOfChallenge} denominator={30} />
+        <ProgressBar className="ml-2" numerator={this.props.challengeParticipation.dayOfChallenge} denominator={30} />
         {this.props.challengeParticipation.newestTodayFeedback ?
-          <div>
+          <div className="ml-2">
             <DayStatus status={this.props.challengeParticipation.newestTodayFeedback.status} />
             <LongTextForm title="Feedback" onSubmit={this.onUpdatedFeedback} defaultText={this.props.challengeParticipation.newestTodayFeedback.feedbackText ?? ''} />
           </div>
-          : <DailyFeedbackStatusButtons onUpdateStatus={this.onUpdatedStatus} />
+          : <div className="ml-2"><DailyFeedbackStatusButtons onUpdateStatus={this.onUpdatedStatus} /></div>
         }
       </div>
     );
