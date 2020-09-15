@@ -149,7 +149,8 @@ class ChallengeParticipationDetails extends Component {
               <h2>{this.state.challengePart.challenge.title}</h2>
               { !finished && 
               <ThreeButtonMenu>
-                <button className="btn btn-orange" onClick={this.onAbandonChallenge}>Abandon Challenge</button>
+                { onClose => 
+                (<button className="btn btn-orange" onClick={(e) => {onClose(); this.onAbandonChallenge(e);}}>Abandon Challenge</button>)}
               </ThreeButtonMenu> }
             </div>
             <p>Go to <Link className="underline hover:text-blue-600" to={`/challenges/${this.state.challengePart.challenge.slug}`}>challenge page</Link></p>

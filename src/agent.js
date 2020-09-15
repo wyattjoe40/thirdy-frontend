@@ -1,8 +1,8 @@
 import superagent from 'superagent';
 import history from './history'
 
-const host = "http://localhost:3001/api"
-//const host = "https://thirdy-backend.azurewebsites.net/api"
+//const host = "http://localhost:3001/api"
+const host = "https://thirdy-backend.azurewebsites.net/api"
 
 
 function createUrl(route) {

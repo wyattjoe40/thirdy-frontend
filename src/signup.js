@@ -64,7 +64,7 @@ class Signup extends React.Component {
         <form className="flex flex-col items-center" onSubmit={this.handleSubmit}>
           <h2 className="text-green-600">thirdy</h2>
           <h3>Signup</h3>
-          <div>
+          <div className="mt-2">
             <input className="generic-container" placeholder="username" type="text" name="username" value={this.state.username} onChange={this.handleValueChange} />
           </div>
           <div>
@@ -73,7 +73,7 @@ class Signup extends React.Component {
           <div>
             <input className="generic-container" placeholder="password" type="password" name="password" value={this.state.password} onChange={this.handleValueChange} />
           </div>
-          <div>
+          <div className="mt-2">
             <TimezonePicker
               name="timezone"
               onChange={this.handleValueChange}
@@ -84,25 +84,30 @@ class Signup extends React.Component {
               }}
             />
           </div>
-          <div>
+          <div className="mt-2">
             <label>
               Receive email newsletter:
             <input type="checkbox" name="newsletterOptIn" checked={this.state.newsletterOptIn} onChange={this.handleCheckboxChange} />
             </label>
           </div>
-          <input className="btn btn-green" type="submit" value="Signup" />
-          <button className="btn btn-gray" onClick={(event) => {
+          <input className="btn btn-green mt-2"  disabled={
+            !this.state.username ||
+            !this.state.email ||
+            !this.state.password ||
+            !this.state.timezone
+          } type="submit" value="Signup" />
+          <button className="btn btn-gray mt-2" onClick={(event) => {
             event.preventDefault();
             const now = (new Date()).getTime().toString();
             this.setState({ username: `matt${now}`, email: `matt${now}@test.com`, password: "pass", newsletterOptIn: true });
           }}>Fill with unique values</button>
         </form>
         {this.state.error &&
-          <p style={{ color: "red" }}>
+          <p className="mt-2 text-red-600">
             {this.state.error}
           </p>
         }
-        <button className="btn btn-gray" onClick={this.props.toLogin}>Go to Login</button>
+        <button className="btn btn-gray mt-2" onClick={this.props.toLogin}>Go to Login</button>
       </div>
     )
   }

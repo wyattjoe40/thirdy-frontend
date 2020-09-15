@@ -58,10 +58,10 @@ class Login extends React.Component {
                   <div>
                     <input className="generic-container" placeholder="password" type="password" name="password" onChange={this.onValueChange} />
                   </div>
-                  <input className="btn btn-green" type="submit" value="Login" />
-                  {this.state.error && <p>{this.state.error}</p>}
+                  <input className="btn btn-green mt-2" disabled={!this.state.password || !this.state.email} type="submit" value="Login" />
+                  {this.state.error && <p className="mt-2 text-red-600">{this.state.error}</p>}
                 </form>
-                <button className="btn btn-gray" onClick={this.props.toSignup} >Go to Signup</button>
+                <button className="btn btn-gray mt-2" onClick={this.props.toSignup} >Go to Signup</button>
               </div>)}
           </userContext.Consumer>
           )}

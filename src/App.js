@@ -24,7 +24,12 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { selectedTabs: ls('selectedTabs') || {}, user: ls('user'), openLoginState: false, isLoginOpen: false, currentScreen: CurrentScreen.LOGIN }
+    this.state = { 
+      selectedTabs: ls('selectedTabs') || {},
+      user: ls('user'),
+      isLoginOpen: false,
+      currentScreen: CurrentScreen.LOGIN 
+    }
 
     this.setUser = this.setUser.bind(this)
     this.startLogin = this.startLogin.bind(this)
