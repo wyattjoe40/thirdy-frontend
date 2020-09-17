@@ -36,11 +36,11 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: tag frontend ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:latest
-      - name: Docker - Tag Build Number
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: tag frontend ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:${{ github.run_number }}
+      #- name: Docker - Tag Build Number
+      #  if: success()
+      #  uses: actions-hub/docker@master
+      #  with:
+      #    args: tag frontend ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:${{ github.run_number }}
       - name: Docker - Tag Version
         if: success()
         uses: actions-hub/docker@master
@@ -51,11 +51,11 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:latest
-      - name: Docker - Push Build Number
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:${{ github.run_number }}
+      #- name: Docker - Push Build Number
+      #  if: success()
+      #  uses: actions-hub/docker@master
+      #  with:
+      #    args: push ${{ env.REGISTRY_DOMAIN }}/thirdy/frontend:${{ github.run_number }}
       - name: Docker - Push Version
         if: success()
         uses: actions-hub/docker@master
