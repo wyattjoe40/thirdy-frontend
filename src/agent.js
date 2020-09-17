@@ -34,7 +34,7 @@ const methods = {
 
 const Challenge = {
   Get: (slug) => methods.Get(`challenges/${slug}`),
-  Create: () => methods.Put("challenges"),
+  Create: (challenge) => methods.Post("challenges", challenge),
   GetActiveUsers: (slug) => methods.Get(`challenges/${slug}/users?status=active`)
 }
 

@@ -19,6 +19,7 @@ import MyChallenges from './MyChallenges';
 import history from './history'
 import Signout from './Signout'
 import Search from './Search'
+import CreateChallenge from './CreateChallenge';
 
 class App extends React.Component {
   constructor(props) {
@@ -104,6 +105,9 @@ class App extends React.Component {
                     <Route path="/user/challenges/:participationId" render={({ match }) => (
                       <ChallengeParticipationDetails participationId={match.params.participationId} />
                     )} />
+                    <PrivateRoute exact={true} path="/create-challenge">
+                      <CreateChallenge />
+                    </PrivateRoute>
                     <Route path="/signout" component={Signout} />
                     <Route path="/testing" component={Testing} />
                     <PrivateRoute exact={true} path="/user/challenges">
