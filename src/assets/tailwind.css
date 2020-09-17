@@ -32,8 +32,12 @@ button:hover {
   height: calc(100vh - 5rem);
 }
 
-.login-input {
+.link-button {
+  @apply p-2 rounded-lg text-white bg-green-600;
+}
 
+.link-button:hover {
+  @apply bg-green-700;
 }
 
 .btn {
@@ -58,7 +62,6 @@ button:hover {
 
 .btn-green:enabled:hover {
   @apply bg-green-600;
-
 }
 
 .btn-gray:enabled {

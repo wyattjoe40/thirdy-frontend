@@ -641,7 +641,21 @@ button:hover {
   height: calc(100vh - 5rem);
 }
 
-.login-input {
+.link-button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
+}
+
+.link-button:hover {
+  --bg-opacity: 1;
+  background-color: #2f855a;
+  background-color: rgba(47, 133, 90, var(--bg-opacity));
 }
 
 .btn {
