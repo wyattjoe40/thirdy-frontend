@@ -22,8 +22,8 @@
     "superagent-promise": "^1.1.0"
   },
   "scripts": {
-    "start": "npm run watch:css && react-scripts start",
-    "build": "npm run build:css && react-scripts build",
+    "start": "npm run watch:css && REACT_APP_ENVIRONMENT=LOCAL react-scripts start",
+    "build": "npm run build:css && REACT_APP_ENVIRONMENT=PRODUCTION react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
