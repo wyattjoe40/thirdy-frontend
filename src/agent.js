@@ -1,14 +1,7 @@
 import superagent from 'superagent';
 import history from './history'
 
-const isProduction = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTION';
-
-var host
-if (isProduction) {
-  host = "https://thirdy-backend.azurewebsites.net/api"
-} else {
-  host = "http://localhost:3001/api"
-}
+const host = process.env.REACT_APP_BACKEND_URL
 
 function createUrl(route) {
   return `${host}/${route}`
