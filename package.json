@@ -22,7 +22,7 @@
     "superagent-promise": "^1.1.0"
   },
   "scripts": {
-    "start": "REACT_APP_ENVIRONMENT=devops REACT_APP_BACKEND_URL='http://localhost:3001/api' npm run watch:css && react-scripts start",
+    "start": "REACT_APP_ENVIRONMENT=dev REACT_APP_BACKEND_URL='http://localhost:3001/api' npm run watch:css && react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "build:prod": "REACT_APP_ENVIRONMENT=production REACT_APP_BACKEND_URL='https://thirdy-backend.azurewebsites.net/api' npm run build",
     "build:staging": "REACT_APP_ENVIRONMENT=staging REACT_APP_BACKEND_URL='https://thirdy-backend-staging.azurewebsites.net/api' npm run build",
