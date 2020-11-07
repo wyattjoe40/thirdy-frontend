@@ -23,7 +23,7 @@ class DayStatus extends Component {
         break;
     }
     return (
-      <p>Status: <FontAwesomeIcon className={`${statusDisplayColor}`} icon={statusDisplayIcon}/> {statusDisplayText}</p>
+      <p>Today: <FontAwesomeIcon className={`${statusDisplayColor}`} icon={statusDisplayIcon}/> {statusDisplayText}</p>
     )
   }
 }
