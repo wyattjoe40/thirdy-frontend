@@ -37,7 +37,7 @@ button:hover {
 }
 
 .link-button:hover {
-  @apply bg-green-700;
+  @apply bg-green-800;
 }
 
 .btn {
@@ -57,11 +57,11 @@ button:hover {
 }
 
 .btn-green:enabled {
-  @apply bg-green-400 text-white;
+  @apply bg-green-600 text-white;
 }
 
 .btn-green:enabled:hover {
-  @apply bg-green-600;
+  @apply bg-green-800;
 }
 
 .btn-gray:enabled {
