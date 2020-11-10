@@ -654,8 +654,8 @@ button:hover {
 
 .link-button:hover {
   --bg-opacity: 1;
-  background-color: #2f855a;
-  background-color: rgba(47, 133, 90, var(--bg-opacity));
+  background-color: #276749;
+  background-color: rgba(39, 103, 73, var(--bg-opacity));
 }
 
 .btn {
@@ -691,8 +691,8 @@ button:hover {
 
 .btn-green:enabled {
   --bg-opacity: 1;
-  background-color: #68d391;
-  background-color: rgba(104, 211, 145, var(--bg-opacity));
+  background-color: #38a169;
+  background-color: rgba(56, 161, 105, var(--bg-opacity));
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
@@ -700,8 +700,8 @@ button:hover {
 
 .btn-green:enabled:hover {
   --bg-opacity: 1;
-  background-color: #38a169;
-  background-color: rgba(56, 161, 105, var(--bg-opacity));
+  background-color: #276749;
+  background-color: rgba(39, 103, 73, var(--bg-opacity));
 }
 
 .btn-gray:enabled {
